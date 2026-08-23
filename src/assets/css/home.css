@@ -1,0 +1,21 @@
+  .wedge {
+    transition: transform .28s ease, filter .28s ease;
+    transform-box: view-box;
+    transform-origin: 400px 400px;
+  }
+  .seg-link:hover .wedge {
+    transform: scale(1.07);
+    filter: brightness(1.08);
+    cursor: pointer;
+  }
+  .seg-link:hover .seg-label {
+    transform: scale(1.07);
+  }
+  .seg-label {
+    transition: transform .28s ease;
+    transform-origin: center center;
+  }
+  .seg-link:focus-visible .wedge {
+    transform: scale(1.07);
+    outline: none;
+  }
