@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 
 let data_1 = {
   name: "الباقة الأساسية",
@@ -54,13 +54,13 @@ let data_3 = {
     "e-commerce",
     "Maintenance",
   ],
+  successpack: true,
 };
-
 
 export default function PriceConfig() {
   const [service, setService] = useState("");
   const [showDialog, setShowDialog] = useState(false);
-
+  const [isYearly, setIsYearly] = useState(true);
 
   const { id } = useParams();
   const data = {
@@ -68,31 +68,29 @@ export default function PriceConfig() {
     2: data_2,
     3: data_3,
   }[id];
-
+  const priceInYear = (data.price * 12).toFixed(2);
   return (
     <>
       <div className="max-w-6xl mx-auto p-6 font-sans text-gray-800 pt-12 pb-24">
         {/* Header */}
         <div className="relative flex items-center justify-center mb-12">
-          <a
-            href="pricing.html"
-            className="absolute left-0 p-3 bg-gray-100 text-gray-600 rounded hover:bg-gray-200 transition"
-          >
-            <svg
-              className="w-5 h-5"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="M15 19l-7-7 7-7"
-              />
-            </svg>
-          </a>
-
+          <Link to="/pricing">
+            <button className="absolute left-0 p-3 bg-gray-100 text-gray-600 rounded hover:bg-gray-200 transition">
+              <svg
+                className="w-5 h-5"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  d="M15 19l-7-7 7-7"
+                />
+              </svg>
+            </button>
+          </Link>
           <h1 className="text-3xl tracking-wide">
             <span className="text-[#1e40af] font-semibold">{data.name}</span>
           </h1>
@@ -159,102 +157,105 @@ export default function PriceConfig() {
                 </label>
               </div>
             </div>
-
             {/* Implementation Service */}
-            <div className="space-y-3">
-              <h2 className="text-lg font-semibold text-gray-700">
-                Implementation Service
-              </h2>
+            {data.successpack === true ? (
+              <div className="space-y-3">
+                <h2 className="text-lg font-semibold text-gray-700">
+                  Implementation Service
+                </h2>
 
-              {/* Self Service */}
-              <label className="flex items-center gap-3 cursor-pointer">
-                <input
-                  type="radio"
-                  name="service"
-                  value="self_service"
-                  checked={service === "self_service"}
-                  onChange={(e) => setService(e.target.value)}
-                  className="w-4 h-4 accent-[#1e40af] cursor-pointer"
-                />
-
-                <span className="text-gray-700">Self Service</span>
-              </label>
-
-              {/* Success Pack */}
-              <div className="space-y-2">
+                {/* Self Service */}
                 <label className="flex items-center gap-3 cursor-pointer">
                   <input
                     type="radio"
                     name="service"
-                    value="success_pack"
-                    checked={service === "success_pack"}
+                    value="self_service"
+                    checked={service === "self_service"}
                     onChange={(e) => setService(e.target.value)}
                     className="w-4 h-4 accent-[#1e40af] cursor-pointer"
                   />
 
-                  <span className="text-gray-700">
-                    Success Pack (recommended for <strong>&lt; 50</strong>{" "}
-                    users)
-                  </span>
+                  <span className="text-gray-700">Self Service</span>
                 </label>
 
-                {/* Success Pack Box */}
-                {service === "success_pack" && (
-                  <div
-                    id="successBox"
-                    className="ml-7 p-4 bg-[#e6f4f8] border border-[#cbe7f0] rounded-lg space-y-4"
-                  >
-                    <p className="text-sm text-gray-700 leading-relaxed">
-                      With a Success Pack, you are assigned an expert to provide
-                      unique personalized assistance to help you customize your
-                      solution and optimize your workflows as part of your
-                      initial implementation. Keep in mind these hours expire
-                      after one year so be sure to utilize them whenever you
-                      need support.
-                    </p>
+                {/* Success Pack */}
+                <div className="space-y-2">
+                  <label className="flex items-center gap-3 cursor-pointer">
+                    <input
+                      type="radio"
+                      name="service"
+                      value="success_pack"
+                      checked={service === "success_pack"}
+                      onChange={(e) => setService(e.target.value)}
+                      className="w-4 h-4 accent-[#1e40af] cursor-pointer"
+                    />
 
-                    <div className="flex items-center justify-end gap-2 pt-1">
-                      {/* Configure */}
-                      <button
-                        type="button"
-                        onClick={() => setShowDialog(true)}
-                        className="inline-flex items-center gap-1.5 px-4 py-2 bg-[#1e40af] hover:bg-[#254fd8] text-white text-sm font-medium rounded transition"
-                      >
-                        <svg
-                          className="w-4 h-4"
-                          fill="none"
-                          stroke="currentColor"
-                          viewBox="0 0 24 24"
+                    <span className="text-gray-700">
+                      Success Pack (recommended for <strong>&lt; 50</strong>{" "}
+                      users)
+                    </span>
+                  </label>
+
+                  {/* Success Pack Box */}
+                  {service === "success_pack" && (
+                    <div
+                      id="successBox"
+                      className="ml-7 p-4 bg-[#e6f4f8] border border-[#cbe7f0] rounded-lg space-y-4"
+                    >
+                      <p className="text-sm text-gray-700 leading-relaxed">
+                        With a Success Pack, you are assigned an expert to
+                        provide unique personalized assistance to help you
+                        customize your solution and optimize your workflows as
+                        part of your initial implementation. Keep in mind these
+                        hours expire after one year so be sure to utilize them
+                        whenever you need support.
+                      </p>
+
+                      <div className="flex items-center justify-end gap-2 pt-1">
+                        {/* Configure */}
+                        <button
+                          type="button"
+                          onClick={() => setShowDialog(true)}
+                          className="inline-flex items-center gap-1.5 px-4 py-2 bg-[#1e40af] hover:bg-[#254fd8] text-white text-sm font-medium rounded transition"
                         >
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth="2"
-                            d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"
-                          />
+                          <svg
+                            className="w-4 h-4"
+                            fill="none"
+                            stroke="currentColor"
+                            viewBox="0 0 24 24"
+                          >
+                            <path
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              strokeWidth="2"
+                              d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"
+                            />
 
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth="2"
-                            d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
-                          />
-                        </svg>
-                        Configure
-                      </button>
+                            <path
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              strokeWidth="2"
+                              d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
+                            />
+                          </svg>
+                          Configure
+                        </button>
 
-                      {/* Read More */}
-                      <a
-                        href="pricing-packs.html"
-                        className="px-4 py-2 bg-white hover:bg-gray-50 text-[#1e40af] text-sm font-medium rounded border border-gray-200 transition"
-                      >
-                        Read More
-                      </a>
+                        {/* Read More */}
+                        <a
+                          href="pricing-packs.html"
+                          className="px-4 py-2 bg-white hover:bg-gray-50 text-[#1e40af] text-sm font-medium rounded border border-gray-200 transition"
+                        >
+                          Read More
+                        </a>
+                      </div>
                     </div>
-                  </div>
-                )}
+                  )}
+                </div>
               </div>
-            </div>
+            ) : (
+              ""
+            )}
           </div>
 
           {/* ================= RIGHT SIDE ================= */}
@@ -262,19 +263,20 @@ export default function PriceConfig() {
             <div className="border border-gray-200 rounded-lg p-6 bg-white shadow-sm space-y-6">
               {/* Yearly / Monthly */}
               <div className="flex items-center justify-center gap-3 border-b border-gray-100 pb-4 text-sm font-medium">
-                <span className="text-gray-700">Yearly</span>
+                <span className="text-gray-700">Monthly</span>
 
                 <label className="relative inline-flex items-center cursor-pointer">
                   <input
                     type="checkbox"
-                    defaultChecked
+                    checked={isYearly}
+                    onChange={(e) => setIsYearly(e.target.checked)}
                     className="sr-only peer"
                   />
 
                   <div className="w-9 h-5 bg-gray-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-[#1e40af]" />
                 </label>
 
-                <span className="text-gray-700">Monthly</span>
+                <span className="text-gray-700">Yearly</span>
               </div>
 
               {/* Price */}
@@ -283,31 +285,64 @@ export default function PriceConfig() {
                   <span>
                     <strong className="text-[#1e40af]">1</strong> Users,{" "}
                     <strong className="text-[#1e40af]">
-                      {data.modules?.length >= 6 ? data.modules.length : "All"}
+                      {data.modules?.length <= 6 ? data.modules.length : "All"}
                     </strong>{" "}
                     Apps
                   </span>
 
                   <span>{data.currency + data.price}</span>
                 </div>
+                {data.modules?.length > 11 ? (
+                  <div>
+                    <div className="flex justify-between items-center text-gray-700">
+                      <span>
+                        With{" "}
+                        <strong className="text-red-500">
+                          website e-commorce
+                        </strong>
+                      </span>
+                    </div>
+                    <div className="flex justify-between items-center text-gray-700">
+                      <span>
+                        And{" "}
+                        <strong className="text-red-500">Maintenance</strong>
+                      </span>
+                    </div>
+                  </div>
+                ) : (
+                  ""
+                )}
+                {isYearly && (
+                  <div className="flex justify-between items-center text-emerald-600 font-medium italic border-b border-gray-100 pb-3">
+                    <span>First Year Initial Discount</span>
+                    <span>
+                      {data.currency}
+                      {(priceInYear - priceInYear * 0.15).toFixed(2)}
+                    </span>
+                  </div>
+                )}
 
-                <div className="flex justify-between items-center text-emerald-600 font-medium italic border-b border-gray-100 pb-3">
-                  <span>First Year Initial Discount</span>
-
-                  <span>US$ -2.70</span>
-                </div>
-
-                <div className="flex justify-between items-center pt-1 font-semibold text-gray-800">
-                  <span>
-                    Total / month <sup>(*)</sup>
-                  </span>
-
-                  <span>US$ 10.90</span>
-                </div>
-
-                <p className="text-xs text-gray-500 text-right">
-                  (*) Billed annually: US$ 130.80
-                </p>
+                {isYearly ? (
+                  <div className="flex justify-between items-center pt-1 font-semibold text-gray-800">
+                    <span>
+                      Total / Year <sup>(*)</sup>
+                    </span>
+                    <span>
+                      {data.currency}
+                      {(Number(priceInYear) * 0.85).toFixed(2)}
+                    </span>
+                  </div>
+                ) : (
+                  <div className="flex justify-between items-center pt-1 font-semibold text-gray-800">
+                    <span>
+                      Total / month <sup>(*)</sup>
+                    </span>
+                    <span>
+                      {data.currency}
+                      {Number(data.price).toFixed(2)}
+                    </span>
+                  </div>
+                )}
               </div>
 
               {/* Buttons */}
