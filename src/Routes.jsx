@@ -8,7 +8,7 @@ function RoutesRoot() {
     <Routes>
       <Route path="/" element={<HomePage/>}/>
       <Route path="/pricing" element={<PricingPage/>}/>
-      <Route path="/pricing-config" element={<PricingConfig/>}/>
+      <Route path="/pricing-config/:id" element={<PricingConfig/>}/>
       <Route path="/help" element={<HelpPage/>}/>
     </Routes>
   )

@@ -1,8 +1,73 @@
 import { useState } from "react";
+import { useParams } from "react-router-dom";
+
+let data_1 = {
+  name: "الباقة الأساسية",
+  price: "70.50",
+  currency: "ر.س",
+  descript: "Perfect for small businesses and startups",
+  modules: [
+    "Clients",
+    "Suppliers",
+    "Sales",
+    "Purchases",
+    "Warehousing",
+    "Financial Management",
+  ],
+};
+let data_2 = {
+  name: "الباقة القياسية",
+  price: "120",
+  currency: "ر.س",
+  descript: "Perfect for small businesses and startups",
+  modules: [
+    "CRM",
+    "Sales",
+    "POS",
+    "Purchases",
+    "Warehousing",
+    "Fixed Assets",
+    "Financial Management",
+    "HR",
+    "Project Manager",
+    "Manufacturing",
+    "Reports & Analytics",
+  ],
+};
+let data_3 = {
+  name: "الباقة المؤسسية",
+  price: "189.95",
+  currency: "ر.س",
+  descript: "Perfect for small businesses and startups",
+  modules: [
+    "CRM",
+    "Sales",
+    "POS",
+    "Purchases",
+    "Warehousing",
+    "Fixed Assets",
+    "Financial Management",
+    "HR",
+    "Project Manager",
+    "Manufacturing",
+    "Reports & Analytics",
+    "e-commerce",
+    "Maintenance",
+  ],
+};
+
 
 export default function PriceConfig() {
   const [service, setService] = useState("");
   const [showDialog, setShowDialog] = useState(false);
+
+
+  const { id } = useParams();
+  const data = {
+    1: data_1,
+    2: data_2,
+    3: data_3,
+  }[id];
 
   return (
     <>
@@ -29,8 +94,7 @@ export default function PriceConfig() {
           </a>
 
           <h1 className="text-3xl tracking-wide">
-            <span className="text-[#1e40af] font-semibold">CUSTOM</span>
-            <span className="text-gray-700 font-normal ml-2">PLAN</span>
+            <span className="text-[#1e40af] font-semibold">{data.name}</span>
           </h1>
         </div>
 
@@ -87,16 +151,11 @@ export default function PriceConfig() {
                   <input
                     type="radio"
                     name="hosting"
-                    value="odoo-sh"
+                    value="cloud-platform"
                     className="w-4 h-4 accent-[#1e40af] cursor-pointer"
                   />
 
-                  <span className="text-gray-500">
-                    Odoo.sh Cloud Platform -{" "}
-                    <a href="#" className="text-[#1e40af] hover:underline">
-                      Read More
-                    </a>
-                  </span>
+                  <span className="text-gray-500">Cloud Platform</span>
                 </label>
               </div>
             </div>
@@ -134,8 +193,8 @@ export default function PriceConfig() {
                   />
 
                   <span className="text-gray-700">
-                    Success Pack by Odoo (recommended for{" "}
-                    <strong>&lt; 50</strong> users)
+                    Success Pack (recommended for <strong>&lt; 50</strong>{" "}
+                    users)
                   </span>
                 </label>
 
@@ -195,23 +254,6 @@ export default function PriceConfig() {
                   </div>
                 )}
               </div>
-
-              {/* Local Partner */}
-              <label className="flex items-center gap-3 cursor-pointer">
-                <input
-                  type="radio"
-                  name="service"
-                  value="local_partner"
-                  checked={service === "local_partner"}
-                  onChange={(e) => setService(e.target.value)}
-                  className="w-4 h-4 accent-[#1e40af] cursor-pointer"
-                />
-
-                <span className="text-gray-500">
-                  With a local Partner (recommended for <strong>&gt; 50</strong>{" "}
-                  users)
-                </span>
-              </label>
             </div>
           </div>
 
@@ -240,10 +282,13 @@ export default function PriceConfig() {
                 <div className="flex justify-between items-center text-gray-700">
                   <span>
                     <strong className="text-[#1e40af]">1</strong> Users,{" "}
-                    <strong className="text-[#1e40af]">All</strong> Apps
+                    <strong className="text-[#1e40af]">
+                      {data.modules?.length >= 6 ? data.modules.length : "All"}
+                    </strong>{" "}
+                    Apps
                   </span>
 
-                  <span>US$ 13.60</span>
+                  <span>{data.currency + data.price}</span>
                 </div>
 
                 <div className="flex justify-between items-center text-emerald-600 font-medium italic border-b border-gray-100 pb-3">

@@ -36,6 +36,7 @@ export default function IndexPrice() {
               "Warehousing",
               "Financial Management",
             ]}
+            path="/pricing-config/1"
           />
           <PriceCard
             name="الباقة القياسية"
@@ -56,10 +57,11 @@ export default function IndexPrice() {
               "Reports & Analytics",
             ]}
             tag="Most Popular"
+            path="/pricing-config/2"
           />
           <PriceCard
             name="الباقة المؤسسية"
-            price="120"
+            price="189.95"
             currency="ر.س"
             descript="Perfect for small businesses and startups"
             modules={[
@@ -77,6 +79,7 @@ export default function IndexPrice() {
               "e-commerce",
               "Maintenance",
             ]}
+            path="/pricing-config/3"
           />
 
           <PriceCardCustom />
