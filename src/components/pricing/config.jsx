@@ -62,6 +62,29 @@ export default function PriceConfig() {
   const [showDialog, setShowDialog] = useState(false);
   const [isYearly, setIsYearly] = useState(true);
 
+
+  const [selectedModules, setSelectedModules] = useState([]);
+  const basePrice = 0;
+    const handleModuleChange = (e) => {
+    const value = Number(e.target.value);
+
+    if (e.target.checked) {
+      // إضافة الموديول
+      setSelectedModules((prev) => [...prev, value]);
+    } else {
+      // حذف الموديول
+      setSelectedModules((prev) =>
+        prev.filter((item) => item !== value)
+      );
+    }
+  };
+
+  const totalPrice =
+    basePrice +
+    selectedModules.reduce((total, value) => total + value, 0);
+
+
+
   const { id } = useParams();
   const data = {
     1: data_1,
@@ -329,7 +352,7 @@ export default function PriceConfig() {
                     </span>
                     <span>
                       {data.currency}
-                      {(Number(priceInYear) * 0.85).toFixed(2)}
+                      {((Number(priceInYear) * 0.85)+(totalPrice)).toFixed(2)}
                     </span>
                   </div>
                 ) : (
@@ -339,7 +362,7 @@ export default function PriceConfig() {
                     </span>
                     <span>
                       {data.currency}
-                      {Number(data.price).toFixed(2)}
+                      {Number((data.price)+(totalPrice)).toFixed(2)}
                     </span>
                   </div>
                 )}
@@ -430,149 +453,175 @@ export default function PriceConfig() {
 
                 {/* Modules */}
                 <div className="grid grid-cols-1 gap-y-4 gap-x-8 sm:grid-cols-2">
-                  {/* Sales */}
+
                   <label className="flex items-start gap-3 cursor-pointer">
-                    <input
-                      type="checkbox"
-                      className="mt-1 size-4 rounded border-gray-300 text-teal-600 focus:ring-teal-500"
-                    />
-
-                    <div>
+                    <input type="checkbox" className="mt-1 size-4 rounded border-gray-300 text-teal-600 focus:ring-teal-500" value="1000" onChange={handleModuleChange} />
+                    <div className="flex items-center justify-between w-full">
                       <div className="text-sm font-bold text-gray-800">
-                        Sales & CRM
+                        CRM
                       </div>
-
-                      <div className="text-xs text-gray-500">
-                        Sales, Invoicing, Subscriptions, Rental, CRM
+                      <div className="text-sm font-bold text-gray-800 pr-20">
+                        1000 SR
                       </div>
                     </div>
                   </label>
 
-                  {/* Finance */}
+
+                  
                   <label className="flex items-start gap-3 cursor-pointer">
-                    <input
-                      type="checkbox"
-                      className="mt-1 size-4 rounded border-gray-300 text-teal-600 focus:ring-teal-500"
-                    />
-
-                    <div>
+                    <input type="checkbox" className="mt-1 size-4 rounded border-gray-300 text-teal-600 focus:ring-teal-500" value="1000" onChange={handleModuleChange} />
+                    <div className="flex items-center justify-between w-full">
                       <div className="text-sm font-bold text-gray-800">
-                        Finance
+                        Sales
                       </div>
-
-                      <div className="text-xs text-gray-500">
-                        Expenses, Accounting Consolidation
+                      <div className="text-sm font-bold text-gray-800 pr-20">
+                        1000 SR
                       </div>
                     </div>
                   </label>
 
-                  {/* Website */}
                   <label className="flex items-start gap-3 cursor-pointer">
-                    <input
-                      type="checkbox"
-                      className="mt-1 size-4 rounded border-gray-300 text-teal-600 focus:ring-teal-500"
-                    />
-
-                    <div>
+                    <input type="checkbox" className="mt-1 size-4 rounded border-gray-300 text-teal-600 focus:ring-teal-500" value="1500" onChange={handleModuleChange} />
+                    <div className="flex items-center justify-between w-full">
                       <div className="text-sm font-bold text-gray-800">
-                        Website
+                        POS
                       </div>
-
-                      <div className="text-xs text-gray-500">
-                        Website, Ecommerce, Forum
+                      <div className="text-sm font-bold text-gray-800 pr-20">
+                        1500 SR
                       </div>
                     </div>
                   </label>
 
-                  {/* Logistics */}
                   <label className="flex items-start gap-3 cursor-pointer">
-                    <input
-                      type="checkbox"
-                      className="mt-1 size-4 rounded border-gray-300 text-teal-600 focus:ring-teal-500"
-                    />
-
-                    <div>
+                    <input type="checkbox" className="mt-1 size-4 rounded border-gray-300 text-teal-600 focus:ring-teal-500" value="1000" onChange={handleModuleChange} />
+                    <div className="flex items-center justify-between w-full">
                       <div className="text-sm font-bold text-gray-800">
-                        Logistics
+                        Purchases
                       </div>
-
-                      <div className="text-xs text-gray-500">
-                        Procurements, Inventory
+                      <div className="text-sm font-bold text-gray-800 pr-20">
+                        1000 SR
                       </div>
                     </div>
                   </label>
 
-                  {/* Human Resources */}
                   <label className="flex items-start gap-3 cursor-pointer">
-                    <input
-                      type="checkbox"
-                      className="mt-1 size-4 rounded border-gray-300 text-teal-600 focus:ring-teal-500"
-                    />
-
-                    <div>
+                    <input type="checkbox" className="mt-1 size-4 rounded border-gray-300 text-teal-600 focus:ring-teal-500" value="1000" onChange={handleModuleChange} />
+                    <div className="flex items-center justify-between w-full">
                       <div className="text-sm font-bold text-gray-800">
-                        Human Resources
+                        Warehousing
                       </div>
-
-                      <div className="text-xs text-gray-500">
-                        Recruitment, Time Off, Appraisals, Expenses
+                      <div className="text-sm font-bold text-gray-800 pr-20">
+                        1000 SR
                       </div>
                     </div>
                   </label>
 
-                  {/* Point of Sale */}
+
                   <label className="flex items-start gap-3 cursor-pointer">
-                    <input
-                      type="checkbox"
-                      className="mt-1 size-4 rounded border-gray-300 text-teal-600 focus:ring-teal-500"
-                    />
-
-                    <div>
+                    <input type="checkbox" className="mt-1 size-4 rounded border-gray-300 text-teal-600 focus:ring-teal-500" value="1500" onChange={handleModuleChange} />
+                    <div className="flex items-center justify-between w-full">
                       <div className="text-sm font-bold text-gray-800">
-                        Point of Sale
+                        Fixed Assets
                       </div>
-
-                      <div className="text-xs text-gray-500">
-                        Shop, Restaurants
+                      <div className="text-sm font-bold text-gray-800 pr-20">
+                        1500 SR
                       </div>
                     </div>
                   </label>
 
-                  {/* Services */}
+
                   <label className="flex items-start gap-3 cursor-pointer">
-                    <input
-                      type="checkbox"
-                      className="mt-1 size-4 rounded border-gray-300 text-teal-600 focus:ring-teal-500"
-                    />
-
-                    <div>
+                    <input type="checkbox" className="mt-1 size-4 rounded border-gray-300 text-teal-600 focus:ring-teal-500" value="1500" onChange={handleModuleChange} />
+                    <div className="flex items-center justify-between w-full">
                       <div className="text-sm font-bold text-gray-800">
-                        Services
+                        Financial Management
                       </div>
-
-                      <div className="text-xs text-gray-500">
-                        Projects, Timesheets, Helpdesk, Planning
+                      <div className="text-sm font-bold text-gray-800 pr-20">
+                        1500 SR
                       </div>
                     </div>
                   </label>
 
-                  {/* Manufacturing */}
-                  <label className="flex items-start gap-3 cursor-pointer">
-                    <input
-                      type="checkbox"
-                      className="mt-1 size-4 rounded border-gray-300 text-teal-600 focus:ring-teal-500"
-                    />
 
-                    <div>
+                  <label className="flex items-start gap-3 cursor-pointer">
+                    <input type="checkbox" className="mt-1 size-4 rounded border-gray-300 text-teal-600 focus:ring-teal-500" value="1500" onChange={handleModuleChange} />
+                    <div className="flex items-center justify-between w-full">
+                      <div className="text-sm font-bold text-gray-800">
+                        HR
+                      </div>
+                      <div className="text-sm font-bold text-gray-800 pr-20">
+                        1500 SR
+                      </div>
+                    </div>
+                  </label>
+
+
+
+                  <label className="flex items-start gap-3 cursor-pointer">
+                    <input type="checkbox" className="mt-1 size-4 rounded border-gray-300 text-teal-600 focus:ring-teal-500" value="1500" onChange={handleModuleChange} />
+                    <div className="flex items-center justify-between w-full">
+                      <div className="text-sm font-bold text-gray-800">
+                        Project Manager
+                      </div>
+                      <div className="text-sm font-bold text-gray-800 pr-20">
+                        1500 SR
+                      </div>
+                    </div>
+                  </label>
+
+
+                  <label className="flex items-start gap-3 cursor-pointer">
+                    <input type="checkbox" className="mt-1 size-4 rounded border-gray-300 text-teal-600 focus:ring-teal-500" value="2000" onChange={handleModuleChange} />
+                    <div className="flex items-center justify-between w-full">
                       <div className="text-sm font-bold text-gray-800">
                         Manufacturing
                       </div>
-
-                      <div className="text-xs text-gray-500">
-                        MRP, PLM, Quality, Maintenance
+                      <div className="text-sm font-bold text-gray-800 pr-20">
+                        2000 SR
                       </div>
                     </div>
                   </label>
+
+                  <label className="flex items-start gap-3 cursor-pointer">
+                    <input type="checkbox" className="mt-1 size-4 rounded border-gray-300 text-teal-600 focus:ring-teal-500" value="1000" onChange={handleModuleChange} />
+                    <div className="flex items-center justify-between w-full">
+                      <div className="text-sm font-bold text-gray-800">
+                        Reports & Analytics
+                      </div>
+                      <div className="text-sm font-bold text-gray-800 pr-20">
+                        1000 SR
+                      </div>
+                    </div>
+                  </label>
+
+
+                  <label className="flex items-start gap-3 cursor-pointer">
+                    <input type="checkbox" className="mt-1 size-4 rounded border-gray-300 text-teal-600 focus:ring-teal-500" value="2000" onChange={handleModuleChange} />
+                    <div className="flex items-center justify-between w-full">
+                      <div className="text-sm font-bold text-gray-800">
+                        e-commerce
+                      </div>
+                      <div className="text-sm font-bold text-gray-800 pr-20">
+                        2000 SR
+                      </div>
+                    </div>
+                  </label>
+
+
+                  <label className="flex items-start gap-3 cursor-pointer">
+                    <input type="checkbox" className="mt-1 size-4 rounded border-gray-300 text-teal-600 focus:ring-teal-500" value="2000" onChange={handleModuleChange} />
+                    <div className="flex items-center justify-between w-full">
+                      <div className="text-sm font-bold text-gray-800">
+                        Maintenance
+                      </div>
+                      <div className="text-sm font-bold text-gray-800 pr-20">
+                        2000 SR
+                      </div>
+                    </div>
+                  </label>
+
+
+
                 </div>
 
                 {/* Project Cost */}
@@ -582,7 +631,7 @@ export default function PriceConfig() {
                       <div className="text-sm text-gray-600">Project Cost:</div>
 
                       <div className="text-3xl font-extrabold text-[#17A2B8]">
-                        US$ 977.50{" "}
+                        {data.currency} {totalPrice.toFixed(2)}{" "}
                         <span className="text-xl font-normal">*</span>
                       </div>
                     </div>
