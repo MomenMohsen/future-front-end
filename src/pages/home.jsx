@@ -1,7 +1,11 @@
-export default function HomePage(){
-    return(
-        <>
-            <div className="text-xl">Hello world</div>
-        </>
-    )
+import NavBar from "../components/layouts/navbar";
+import Footer from "../components/layouts/footer";
+export default function HomePage() {
+  return (
+    <>
+      <NavBar />
+        <div className="text-xl">Hello world</div>
+      <Footer />
+    </>
+  );
 }
