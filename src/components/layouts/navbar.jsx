@@ -1,5 +1,5 @@
 import { useState } from "react";
-
+import { Link } from "react-router-dom";
 export default function NavBar() {
   const [appsOpen, setAppsOpen] = useState(false);
 
@@ -9,9 +9,11 @@ export default function NavBar() {
         <div className="mx-auto grid h-full max-w-[1400px] grid-cols-3 items-center px-8 w-full">
           {/* Logo */}
           <div>
-            <a href="/" className="text-[24px] font-bold text-[#1e40af]">
-              odoo
-            </a>
+            <Link to="/">
+              <button className="text-[24px] font-bold text-[#1e40af]">
+                odoo
+              </button>
+            </Link>
           </div>
 
           {/* Navigation */}
@@ -25,28 +27,31 @@ export default function NavBar() {
               <span>Apps</span>
             </button>
 
-            <a href="#" className="text-sm font-semibold text-gray-700">
+            <button className="text-sm font-semibold text-gray-700">
               Industries
-            </a>
+            </button>
 
-            <a href="#" className="text-sm font-semibold text-gray-700">
+            <button href="#" className="text-sm font-semibold text-gray-700">
               Community
-            </a>
+            </button>
 
-            <a href="/pricing" className="text-sm font-semibold text-gray-700">
-              Pricing
-            </a>
-
-            <a href="/help" className="text-sm font-semibold text-gray-700">
+            <Link to="/pricing">
+              <button className="text-sm font-semibold text-gray-700">
+                Pricing
+              </button>
+            </Link>
+            <Link to="/help">
+            <button className="text-sm font-semibold text-gray-700">
               Help
-            </a>
+            </button>
+            </Link>
           </div>
 
           {/* Right side */}
           <div className="flex justify-end items-center gap-5">
-            <a href="#" className="text-sm font-semibold text-gray-700">
+            <button className="text-sm font-semibold text-gray-700">
               Sign in
-            </a>
+            </button>
 
             <a
               href="#"
