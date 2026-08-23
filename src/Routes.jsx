@@ -1,8 +1,10 @@
-function Routes() {
+import { Route , Routes } from "react-router-dom";
+import HomePage from "./pages/home"
+function RoutesRoot() {
   return (
-    <>
-      <div className="text-xl">Hello world</div>
-    </>
+    <Routes>
+      <Route path="/" element={<HomePage/>}/>
+    </Routes>
   )
 }
-export default Routes
+export default RoutesRoot
