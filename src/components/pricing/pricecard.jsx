@@ -13,6 +13,7 @@ export default function PriceCard({
   ],
   path = "/pricing-config",
   button = "Get started today",
+  tag
 }) {
   return (
     <>
@@ -26,6 +27,14 @@ export default function PriceCard({
          hover:shadow-2xl
          sm:p-10"
       >
+        {tag ?
+        <div class="mb-4 inline-block self-start rounded-full bg-[#1e40af] px-4 py-1 text-xs font-semibold whitespace-nowrap text-white shadow-md">
+          {tag}
+        </div>
+        :
+        ""
+        }
+
         <h3 className="text-base/7 font-semibold text-gray-900">{name}</h3>
 
         <p className="mt-4 flex items-baseline gap-x-2">
@@ -38,7 +47,7 @@ export default function PriceCard({
 
         <p className="mt-6 text-base/7 text-gray-600">{descript}</p>
 
-        <ul className="mt-8 space-y-3 text-sm/6 sm:mt-10">
+        <ul className="mt-8 space-y-3 text-sm/6 sm:mt-10 mb-10">
           {modules.map((module, index) => (
             <li key={index} className="flex gap-x-3">
               <Mark />

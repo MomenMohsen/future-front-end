@@ -19,11 +19,68 @@ export default function LandingPage() {
 
         <div
           className="mx-auto mt-16 grid max-w-lg grid-cols-1
-         gap-6 sm:mt-20
-         lg:max-w-6xl lg:grid-cols-3
-         items-stretch"
+            gap-6 sm:mt-20
+            lg:max-w-6xl lg:grid-cols-3
+            items-stretch"
         >
-          <PriceCard />
+
+          <PriceCard
+            name="الباقة الأساسية"
+            price="70.50"
+            currency="ر.س"
+            descript="Perfect for small businesses and startups"
+            modules={[
+              "Clients",
+              "Suppliers",
+              "Sales",
+              "Purchases",
+              "Warehousing",
+              "Financial Management",
+            ]}
+          />
+          <PriceCard
+            name="الباقة القياسية"
+            price="120"
+            currency="ر.س"
+            descript="Perfect for small businesses and startups"
+            modules={[
+              "CRM",
+              "Sales",
+              "POS",
+              "Purchases",
+              "Warehousing",
+              "Fixed Assets",
+              "Financial Management",
+              "HR",
+              "Project Manager",
+              "Manufacturing",
+              "Reports & Analytics",
+            ]}
+            tag="Most Popular"
+          />
+          <PriceCard
+            name="الباقة المؤسسية"
+            price="120"
+            currency="ر.س"
+            descript="Perfect for small businesses and startups"
+            modules={[
+              "CRM",
+              "Sales",
+              "POS",
+              "Purchases",
+              "Warehousing",
+              "Fixed Assets",
+              "Financial Management",
+              "HR",
+              "Project Manager",
+              "Manufacturing",
+              "Reports & Analytics",
+              "e-commerce",
+              "Maintenance",
+            ]}
+          />
+
+
           <PriceCardCustom />
         </div>
       </div>
