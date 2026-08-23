@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import Logo from "../../assets/images/Logo.svg";
 export default function NavBar() {
   const [appsOpen, setAppsOpen] = useState(false);
 
@@ -11,7 +12,7 @@ export default function NavBar() {
           <div>
             <Link to="/">
               <button className="text-[24px] font-bold text-[#1e40af]">
-                odoo
+                <img src={Logo} alt="Logo" width="75px" />
               </button>
             </Link>
           </div>

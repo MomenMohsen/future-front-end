@@ -1,3 +1,4 @@
+import Logo from "../../assets/images/Logo.svg";
 export default function Footer() {
   return (
     <>
@@ -5,7 +6,7 @@ export default function Footer() {
         <div class="mx-auto max-w-[1400px] px-8 py-12">
           <div class="mb-12 flex justify-center">
             <a href="#" class="text-4xl font-medium tracking-[-2px]">
-              odoo
+                <img src={Logo} alt="Logo" width="150px" />
             </a>
           </div>
 
@@ -72,7 +73,7 @@ export default function Footer() {
               <ul class="space-y-1 text-[15px] text-gray-300">
                 <li>
                   <a href="#" class="hover:text-white">
-                    Odoo.sh Hosting
+                    cloud
                   </a>
                 </li>
 
@@ -197,13 +198,13 @@ export default function Footer() {
 
               <div class="space-y-4 text-[15px] leading-[1.45] text-gray-300">
                 <p>
-                  Odoo is a suite of open source business apps that cover all
+                  future is a suite of open source business apps that cover all
                   your company needs: CRM, eCommerce, accounting, inventory,
                   point of sale, project management, etc.
                 </p>
 
                 <p>
-                  Odoo's unique value proposition is to be at the same time very
+                  future's unique value proposition is to be at the same time very
                   easy to use and fully integrated.
                 </p>
               </div>
@@ -249,7 +250,7 @@ export default function Footer() {
           <div class="flex items-center justify-center gap-2 text-sm text-gray-300">
             <span>Website made with</span>
 
-            <span class="text-xl font-medium text-white">odoo</span>
+            <span class="text-xl font-medium text-white">futur</span>
           </div>
         </div>
       </footer>
