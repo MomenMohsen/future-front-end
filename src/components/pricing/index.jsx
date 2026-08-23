@@ -1,6 +1,6 @@
 import PriceCard from "./pricecard";
 import PriceCardCustom from "./pricecardcustom";
-export default function LandingPage() {
+export default function IndexPrice() {
   return (
     <>
       <div className="relative isolate bg-gray-800 px-6 py-24 sm:py-32 lg:px-8">
@@ -23,7 +23,6 @@ export default function LandingPage() {
             lg:max-w-6xl lg:grid-cols-3
             items-stretch"
         >
-
           <PriceCard
             name="الباقة الأساسية"
             price="70.50"
@@ -79,7 +78,6 @@ export default function LandingPage() {
               "Maintenance",
             ]}
           />
-
 
           <PriceCardCustom />
         </div>

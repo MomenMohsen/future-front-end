@@ -1,11 +1,11 @@
-import Pricing from "../components/pricing/index";
+import Config from "../components/pricing/config";
 import Footer from "../components/layouts/footer";
 import NavBar from "../components/layouts/navbar";
-export default function PricingPage() {
+export default function PricePage() {
   return (
     <>
       <NavBar />
-        <Pricing/>
+        <Config/>
       <Footer />
     </>
   );
