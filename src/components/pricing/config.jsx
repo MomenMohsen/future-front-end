@@ -1,7 +1,540 @@
+import { useState } from "react";
+
 export default function PriceConfig() {
+  const [service, setService] = useState("");
+  const [showDialog, setShowDialog] = useState(false);
+
   return (
     <>
+      <div className="max-w-6xl mx-auto p-6 font-sans text-gray-800 pt-12 pb-24">
+        {/* Header */}
+        <div className="relative flex items-center justify-center mb-12">
+          <a
+            href="pricing.html"
+            className="absolute left-0 p-3 bg-gray-100 text-gray-600 rounded hover:bg-gray-200 transition"
+          >
+            <svg
+              className="w-5 h-5"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
+                d="M15 19l-7-7 7-7"
+              />
+            </svg>
+          </a>
 
+          <h1 className="text-3xl tracking-wide">
+            <span className="text-[#1e40af] font-semibold">CUSTOM</span>
+            <span className="text-gray-700 font-normal ml-2">PLAN</span>
+          </h1>
+        </div>
+
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
+          {/* ================= LEFT SIDE ================= */}
+          <div className="lg:col-span-2 space-y-8">
+            {/* Number of users */}
+            <div className="flex items-center gap-4">
+              <label className="text-lg font-medium text-gray-700">
+                Number of users
+              </label>
+
+              <input
+                type="number"
+                defaultValue="1"
+                min="1"
+                className="w-24 px-3 py-1.5 border border-gray-300 rounded focus:outline-none focus:border-teal-600 text-center text-gray-700"
+              />
+            </div>
+
+            {/* Hosting Type */}
+            <div className="space-y-3">
+              <h2 className="text-lg font-semibold text-gray-700">
+                Hosting Type
+              </h2>
+
+              <div className="space-y-2 text-sm">
+                <label className="flex items-center gap-3 cursor-pointer">
+                  <input
+                    type="radio"
+                    name="hosting"
+                    value="cloud"
+                    defaultChecked
+                    className="w-4 h-4 accent-[#1e40af] cursor-pointer"
+                  />
+
+                  <span className="text-gray-700">
+                    Standard Cloud Hosting - Free
+                  </span>
+                </label>
+
+                <label className="flex items-center gap-3 cursor-pointer">
+                  <input
+                    type="radio"
+                    name="hosting"
+                    value="self"
+                    className="w-4 h-4 accent-[#1e40af] cursor-pointer"
+                  />
+
+                  <span className="text-gray-500">Self Hosting - Free</span>
+                </label>
+
+                <label className="flex items-center gap-3 cursor-pointer">
+                  <input
+                    type="radio"
+                    name="hosting"
+                    value="odoo-sh"
+                    className="w-4 h-4 accent-[#1e40af] cursor-pointer"
+                  />
+
+                  <span className="text-gray-500">
+                    Odoo.sh Cloud Platform -{" "}
+                    <a href="#" className="text-[#1e40af] hover:underline">
+                      Read More
+                    </a>
+                  </span>
+                </label>
+              </div>
+            </div>
+
+            {/* Implementation Service */}
+            <div className="space-y-3">
+              <h2 className="text-lg font-semibold text-gray-700">
+                Implementation Service
+              </h2>
+
+              {/* Self Service */}
+              <label className="flex items-center gap-3 cursor-pointer">
+                <input
+                  type="radio"
+                  name="service"
+                  value="self_service"
+                  checked={service === "self_service"}
+                  onChange={(e) => setService(e.target.value)}
+                  className="w-4 h-4 accent-[#1e40af] cursor-pointer"
+                />
+
+                <span className="text-gray-700">Self Service</span>
+              </label>
+
+              {/* Success Pack */}
+              <div className="space-y-2">
+                <label className="flex items-center gap-3 cursor-pointer">
+                  <input
+                    type="radio"
+                    name="service"
+                    value="success_pack"
+                    checked={service === "success_pack"}
+                    onChange={(e) => setService(e.target.value)}
+                    className="w-4 h-4 accent-[#1e40af] cursor-pointer"
+                  />
+
+                  <span className="text-gray-700">
+                    Success Pack by Odoo (recommended for{" "}
+                    <strong>&lt; 50</strong> users)
+                  </span>
+                </label>
+
+                {/* Success Pack Box */}
+                {service === "success_pack" && (
+                  <div
+                    id="successBox"
+                    className="ml-7 p-4 bg-[#e6f4f8] border border-[#cbe7f0] rounded-lg space-y-4"
+                  >
+                    <p className="text-sm text-gray-700 leading-relaxed">
+                      With a Success Pack, you are assigned an expert to provide
+                      unique personalized assistance to help you customize your
+                      solution and optimize your workflows as part of your
+                      initial implementation. Keep in mind these hours expire
+                      after one year so be sure to utilize them whenever you
+                      need support.
+                    </p>
+
+                    <div className="flex items-center justify-end gap-2 pt-1">
+                      {/* Configure */}
+                      <button
+                        type="button"
+                        onClick={() => setShowDialog(true)}
+                        className="inline-flex items-center gap-1.5 px-4 py-2 bg-[#1e40af] hover:bg-[#254fd8] text-white text-sm font-medium rounded transition"
+                      >
+                        <svg
+                          className="w-4 h-4"
+                          fill="none"
+                          stroke="currentColor"
+                          viewBox="0 0 24 24"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth="2"
+                            d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"
+                          />
+
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth="2"
+                            d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
+                          />
+                        </svg>
+                        Configure
+                      </button>
+
+                      {/* Read More */}
+                      <a
+                        href="pricing-packs.html"
+                        className="px-4 py-2 bg-white hover:bg-gray-50 text-[#1e40af] text-sm font-medium rounded border border-gray-200 transition"
+                      >
+                        Read More
+                      </a>
+                    </div>
+                  </div>
+                )}
+              </div>
+
+              {/* Local Partner */}
+              <label className="flex items-center gap-3 cursor-pointer">
+                <input
+                  type="radio"
+                  name="service"
+                  value="local_partner"
+                  checked={service === "local_partner"}
+                  onChange={(e) => setService(e.target.value)}
+                  className="w-4 h-4 accent-[#1e40af] cursor-pointer"
+                />
+
+                <span className="text-gray-500">
+                  With a local Partner (recommended for <strong>&gt; 50</strong>{" "}
+                  users)
+                </span>
+              </label>
+            </div>
+          </div>
+
+          {/* ================= RIGHT SIDE ================= */}
+          <div>
+            <div className="border border-gray-200 rounded-lg p-6 bg-white shadow-sm space-y-6">
+              {/* Yearly / Monthly */}
+              <div className="flex items-center justify-center gap-3 border-b border-gray-100 pb-4 text-sm font-medium">
+                <span className="text-gray-700">Yearly</span>
+
+                <label className="relative inline-flex items-center cursor-pointer">
+                  <input
+                    type="checkbox"
+                    defaultChecked
+                    className="sr-only peer"
+                  />
+
+                  <div className="w-9 h-5 bg-gray-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-[#1e40af]" />
+                </label>
+
+                <span className="text-gray-700">Monthly</span>
+              </div>
+
+              {/* Price */}
+              <div className="space-y-3 text-sm">
+                <div className="flex justify-between items-center text-gray-700">
+                  <span>
+                    <strong className="text-[#1e40af]">1</strong> Users,{" "}
+                    <strong className="text-[#1e40af]">All</strong> Apps
+                  </span>
+
+                  <span>US$ 13.60</span>
+                </div>
+
+                <div className="flex justify-between items-center text-emerald-600 font-medium italic border-b border-gray-100 pb-3">
+                  <span>First Year Initial Discount</span>
+
+                  <span>US$ -2.70</span>
+                </div>
+
+                <div className="flex justify-between items-center pt-1 font-semibold text-gray-800">
+                  <span>
+                    Total / month <sup>(*)</sup>
+                  </span>
+
+                  <span>US$ 10.90</span>
+                </div>
+
+                <p className="text-xs text-gray-500 text-right">
+                  (*) Billed annually: US$ 130.80
+                </p>
+              </div>
+
+              {/* Buttons */}
+              <div className="space-y-3 pt-2">
+                <button
+                  type="button"
+                  className="w-full py-2.5 bg-[#1e40af] hover:bg-[#254fd8] text-white font-medium rounded transition"
+                >
+                  Buy Now
+                </button>
+
+                <button
+                  type="button"
+                  className="w-full py-2.5 bg-gray-100 hover:bg-gray-200 text-[#1e40af] font-medium rounded transition"
+                >
+                  Send / Print the quote
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* ================= PROJECT ESTIMATOR MODAL ================= */}
+      {showDialog && (
+        <div className="fixed inset-0 z-50 overflow-y-auto">
+          {/* Backdrop */}
+          <div
+            className="fixed inset-0 bg-black/40"
+            onClick={() => setShowDialog(false)}
+          />
+
+          {/* Modal Container */}
+          <div className="flex min-h-full items-center justify-center p-4">
+            <div className="relative w-full max-w-4xl overflow-hidden rounded-md bg-white text-left shadow-2xl">
+              {/* Modal Header */}
+              <div className="flex items-center justify-between border-b border-gray-100 p-6 pb-4">
+                <h2 className="text-2xl font-bold text-gray-800">
+                  Project Estimator
+                </h2>
+
+                <button
+                  type="button"
+                  onClick={() => setShowDialog(false)}
+                  className="text-gray-400 hover:text-gray-600 focus:outline-none"
+                >
+                  <svg
+                    className="size-6"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    strokeWidth="1.5"
+                    stroke="currentColor"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M6 18 18 6M6 6l12 12"
+                    />
+                  </svg>
+                </button>
+              </div>
+
+              {/* Modal Body */}
+              <div className="space-y-6 p-6 text-gray-600">
+                <p className="text-sm leading-relaxed text-gray-600">
+                  A successful implementation requires analysis of your business
+                  needs, configuration, training and coaching of your key users,
+                  import of your data and customization of the business flows.
+                  This tool helps you estimate the cost of the project:
+                </p>
+
+                {/* Company Size */}
+                <div className="flex items-center gap-2 text-sm">
+                  <span>Your company Size</span>
+
+                  <input
+                    type="number"
+                    defaultValue="1"
+                    min="1"
+                    className="w-16 rounded border border-gray-300 px-2 py-1 text-center font-medium text-gray-800 focus:border-cyan-600 focus:outline-none"
+                  />
+
+                  <span>employees.</span>
+                </div>
+
+                {/* Modules */}
+                <div className="grid grid-cols-1 gap-y-4 gap-x-8 sm:grid-cols-2">
+                  {/* Sales */}
+                  <label className="flex items-start gap-3 cursor-pointer">
+                    <input
+                      type="checkbox"
+                      className="mt-1 size-4 rounded border-gray-300 text-teal-600 focus:ring-teal-500"
+                    />
+
+                    <div>
+                      <div className="text-sm font-bold text-gray-800">
+                        Sales & CRM
+                      </div>
+
+                      <div className="text-xs text-gray-500">
+                        Sales, Invoicing, Subscriptions, Rental, CRM
+                      </div>
+                    </div>
+                  </label>
+
+                  {/* Finance */}
+                  <label className="flex items-start gap-3 cursor-pointer">
+                    <input
+                      type="checkbox"
+                      className="mt-1 size-4 rounded border-gray-300 text-teal-600 focus:ring-teal-500"
+                    />
+
+                    <div>
+                      <div className="text-sm font-bold text-gray-800">
+                        Finance
+                      </div>
+
+                      <div className="text-xs text-gray-500">
+                        Expenses, Accounting Consolidation
+                      </div>
+                    </div>
+                  </label>
+
+                  {/* Website */}
+                  <label className="flex items-start gap-3 cursor-pointer">
+                    <input
+                      type="checkbox"
+                      className="mt-1 size-4 rounded border-gray-300 text-teal-600 focus:ring-teal-500"
+                    />
+
+                    <div>
+                      <div className="text-sm font-bold text-gray-800">
+                        Website
+                      </div>
+
+                      <div className="text-xs text-gray-500">
+                        Website, Ecommerce, Forum
+                      </div>
+                    </div>
+                  </label>
+
+                  {/* Logistics */}
+                  <label className="flex items-start gap-3 cursor-pointer">
+                    <input
+                      type="checkbox"
+                      className="mt-1 size-4 rounded border-gray-300 text-teal-600 focus:ring-teal-500"
+                    />
+
+                    <div>
+                      <div className="text-sm font-bold text-gray-800">
+                        Logistics
+                      </div>
+
+                      <div className="text-xs text-gray-500">
+                        Procurements, Inventory
+                      </div>
+                    </div>
+                  </label>
+
+                  {/* Human Resources */}
+                  <label className="flex items-start gap-3 cursor-pointer">
+                    <input
+                      type="checkbox"
+                      className="mt-1 size-4 rounded border-gray-300 text-teal-600 focus:ring-teal-500"
+                    />
+
+                    <div>
+                      <div className="text-sm font-bold text-gray-800">
+                        Human Resources
+                      </div>
+
+                      <div className="text-xs text-gray-500">
+                        Recruitment, Time Off, Appraisals, Expenses
+                      </div>
+                    </div>
+                  </label>
+
+                  {/* Point of Sale */}
+                  <label className="flex items-start gap-3 cursor-pointer">
+                    <input
+                      type="checkbox"
+                      className="mt-1 size-4 rounded border-gray-300 text-teal-600 focus:ring-teal-500"
+                    />
+
+                    <div>
+                      <div className="text-sm font-bold text-gray-800">
+                        Point of Sale
+                      </div>
+
+                      <div className="text-xs text-gray-500">
+                        Shop, Restaurants
+                      </div>
+                    </div>
+                  </label>
+
+                  {/* Services */}
+                  <label className="flex items-start gap-3 cursor-pointer">
+                    <input
+                      type="checkbox"
+                      className="mt-1 size-4 rounded border-gray-300 text-teal-600 focus:ring-teal-500"
+                    />
+
+                    <div>
+                      <div className="text-sm font-bold text-gray-800">
+                        Services
+                      </div>
+
+                      <div className="text-xs text-gray-500">
+                        Projects, Timesheets, Helpdesk, Planning
+                      </div>
+                    </div>
+                  </label>
+
+                  {/* Manufacturing */}
+                  <label className="flex items-start gap-3 cursor-pointer">
+                    <input
+                      type="checkbox"
+                      className="mt-1 size-4 rounded border-gray-300 text-teal-600 focus:ring-teal-500"
+                    />
+
+                    <div>
+                      <div className="text-sm font-bold text-gray-800">
+                        Manufacturing
+                      </div>
+
+                      <div className="text-xs text-gray-500">
+                        MRP, PLM, Quality, Maintenance
+                      </div>
+                    </div>
+                  </label>
+                </div>
+
+                {/* Project Cost */}
+                <div className="mt-6 border-t border-gray-200 pt-4">
+                  <div className="grid grid-cols-1 items-center gap-4 md:grid-cols-2">
+                    <div>
+                      <div className="text-sm text-gray-600">Project Cost:</div>
+
+                      <div className="text-3xl font-extrabold text-[#17A2B8]">
+                        US$ 977.50{" "}
+                        <span className="text-xl font-normal">*</span>
+                      </div>
+                    </div>
+
+                    <div className="text-xs text-gray-500 space-y-1">
+                      <p>
+                        80% of projects within this scope are put in production
+                        in{" "}
+                        <span className="font-bold text-red-500">25 hours</span>{" "}
+                        or less.
+                      </p>
+
+                      <p>* 15% off for new customers</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Modal Footer */}
+              <div className="border-t border-gray-100 p-6 pt-4">
+                <button
+                  type="button"
+                  onClick={() => setShowDialog(false)}
+                  className="rounded-md bg-[#17A2B8] px-6 py-2.5 text-sm font-medium text-white transition hover:bg-[#138496] focus:outline-none"
+                >
+                  Close
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </>
   );
 }
