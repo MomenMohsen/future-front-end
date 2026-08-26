@@ -12,8 +12,9 @@ export default function PriceCard({
     "24-hour support response time",
   ],
   path = "/pricing-config",
-  button = "Get started today",
-  tag
+  button = "Buy now",
+  button2 = "Start free trial",
+  tag,
 }) {
   return (
     <>
@@ -25,15 +26,15 @@ export default function PriceCard({
          transition-all duration-300 ease-in-out
          hover:z-10 hover:scale-105
          hover:shadow-2xl
-         sm:p-10"
+         sm:p-10 relative"
       >
-        {tag ?
-        <div class="mb-4 inline-block self-start rounded-full bg-[#1e40af] px-4 py-1 text-xs font-semibold whitespace-nowrap text-white shadow-md">
-          {tag}
-        </div>
-        :
-        ""
-        }
+        {tag ? (
+          <div class="mb-4 inline-block self-start rounded-full bg-[#1e40af] px-10 py-3 font-semibold whitespace-nowrap text-white shadow-md absolute -top-5 text-md">
+            {tag}
+          </div>
+        ) : (
+          ""
+        )}
 
         <h3 className="text-base/7 font-semibold text-gray-900">{name}</h3>
 
@@ -47,7 +48,7 @@ export default function PriceCard({
 
         <p className="mt-6 text-base/7 text-gray-600">{descript}</p>
 
-        <ul className="mt-8 space-y-3 text-sm/6 sm:mt-10 mb-10">
+        <ul className="mt-8 space-y-3 text-sm/6 sm:mt-10 mb-10 pb-20">
           {modules.map((module, index) => (
             <li key={index} className="flex gap-x-3">
               <Mark />
@@ -55,16 +56,26 @@ export default function PriceCard({
             </li>
           ))}
         </ul>
-        <Link to={path}>
-          <button
-            className="mt-auto block rounded-md bg-[#1e40af] px-3.5 py-2.5
+        <div className="absolute bottom-10">
+          <Link to={path}>
+            <button
+              className="mt-auto block rounded-md bg-[#1e40af] px-3.5 py-2.5
             text-center text-sm font-semibold text-white
             transition-colors duration-200
-            hover:bg-indigo-400"
-          >
-            {button}
-          </button>
-        </Link>
+            hover:bg-indigo-400 w-70"
+            >
+              {button}
+            </button>
+            <button
+              className="mt-2 block rounded-md bg-gray-500 px-3.5 py-2.5
+            text-center text-sm font-semibold text-white
+            transition-colors duration-200
+            hover:bg-gray-400 w-70"
+            >
+              {button2}
+            </button>
+          </Link>
+        </div>
       </div>
     </>
   );
