@@ -137,7 +137,7 @@ export default function PriceConfig() {
     ([name, price]) => ({
       name,
       price,
-    })
+    }),
   );
 
   /*
@@ -155,9 +155,7 @@ export default function PriceConfig() {
       });
     } else {
       // حذف ID
-      setSelectedModules((prev) =>
-        prev.filter((id) => id !== moduleId)
-      );
+      setSelectedModules((prev) => prev.filter((id) => id !== moduleId));
     }
   };
 
@@ -231,10 +229,8 @@ export default function PriceConfig() {
   return (
     <>
       <div className="max-w-6xl mx-auto p-6 font-sans text-gray-800 pt-12 pb-24">
-
         {/* Header */}
         <div className="relative flex items-center justify-center mb-12">
-
           <Link to="/pricing">
             <button className="absolute left-0 p-3 bg-gray-100 text-gray-600 rounded hover:bg-gray-200 transition">
               <svg
@@ -254,21 +250,16 @@ export default function PriceConfig() {
           </Link>
 
           <h1 className="text-3xl tracking-wide">
-            <span className="text-[#1e40af] font-semibold">
-              {data.name}
-            </span>
+            <span className="text-[#1e40af] font-semibold">{data.name}</span>
           </h1>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
-
           {/* ================= LEFT SIDE ================= */}
 
           <div className="lg:col-span-2 space-y-8">
-
             {/* Number of users */}
             <div className="flex items-center gap-4">
-
               <label className="text-lg font-medium text-gray-700">
                 Number of users
               </label>
@@ -278,25 +269,20 @@ export default function PriceConfig() {
                 value={users}
                 min="1"
                 onChange={(e) =>
-                  setUsers(
-                    e.target.value === "" ? 1 : Number(e.target.value)
-                  )
+                  setUsers(e.target.value === "" ? 1 : Number(e.target.value))
                 }
                 className="w-24 px-3 py-1.5 border border-gray-300 rounded focus:outline-none focus:border-teal-600 text-center text-gray-700"
               />
-
             </div>
 
             {/* Implementation Service */}
             <div className="space-y-3">
-
               <h2 className="text-lg font-semibold text-gray-700">
                 Implementation Service
               </h2>
 
               {/* Self Service */}
               <label className="flex items-center gap-3 cursor-pointer">
-
                 <input
                   type="radio"
                   name="service"
@@ -306,17 +292,12 @@ export default function PriceConfig() {
                   className="w-4 h-4 accent-[#1e40af] cursor-pointer"
                 />
 
-                <span className="text-gray-700">
-                  Self Service
-                </span>
-
+                <span className="text-gray-700">Self Service</span>
               </label>
 
               {/* Success Pack */}
               <div className="space-y-2">
-
                 <label className="flex items-center gap-3 cursor-pointer">
-
                   <input
                     type="radio"
                     name="service"
@@ -329,7 +310,6 @@ export default function PriceConfig() {
                   <span className="text-gray-700">
                     Future Advisory Service (subject to service hours)
                   </span>
-
                 </label>
 
                 {service === "success_pack" && (
@@ -337,18 +317,16 @@ export default function PriceConfig() {
                     id="successBox"
                     className="ml-7 p-4 bg-[#e6f4f8] border border-[#cbe7f0] rounded-lg space-y-4"
                   >
-
                     <p className="text-sm text-gray-700 leading-relaxed">
                       Through the "Future" consulting package, an expert is
                       assigned to provide training and guidance, helping you
                       implement your system and configure workflows as part of
-                      the initial rollout. This service covers a specific
-                      number of hours—determined by the chosen package—and remains
+                      the initial rollout. This service covers a specific number
+                      of hours—determined by the chosen package—and remains
                       valid for a full year.
                     </p>
 
                     <div className="flex items-center justify-end gap-2 pt-1">
-
                       {/* Configure */}
                       <button
                         type="button"
@@ -361,14 +339,11 @@ export default function PriceConfig() {
                       {/* Service Schedule */}
                       <button
                         type="button"
-                        onClick={() =>
-                          setShowServiceSchedule((prev) => !prev)
-                        }
+                        onClick={() => setShowServiceSchedule((prev) => !prev)}
                         className="px-4 py-2 bg-white text-sm font-medium rounded border border-gray-200 transition hover:bg-[#1e40af] hover:text-white"
                       >
                         Service Schedule
                       </button>
-
                     </div>
 
                     {/* لوحة الخدمة الاستشارية للتهيئة (اون لاين) */}
@@ -379,13 +354,12 @@ export default function PriceConfig() {
                         dir="rtl"
                       >
                         <div className="flex items-center justify-between gap-4 flex-wrap">
-
                           <span className="text-sm text-gray-700 font-medium">
-                            الخدمة الاستشارية للتهيئة ١٠٠ ريال / الساعة (اون لاين)
+                            الخدمة الاستشارية للتهيئة ١٠٠ ريال / الساعة (اون
+                            لاين)
                           </span>
 
                           <div className="flex items-center gap-2">
-
                             <input
                               type="number"
                               min="0"
@@ -394,18 +368,14 @@ export default function PriceConfig() {
                                 setConsultingHours(
                                   e.target.value === ""
                                     ? 0
-                                    : Number(e.target.value)
+                                    : Number(e.target.value),
                                 )
                               }
                               className="w-20 px-3 py-1.5 border border-gray-300 rounded focus:outline-none focus:border-[#1e40af] text-center text-gray-700"
                             />
 
-                            <span className="text-sm text-gray-600">
-                              ساعة
-                            </span>
-
+                            <span className="text-sm text-gray-600">ساعة</span>
                           </div>
-
                         </div>
 
                         {consultingCost > 0 && (
@@ -417,28 +387,22 @@ export default function PriceConfig() {
                             </span>
                           </div>
                         )}
-
                       </div>
                     )}
-
                   </div>
                 )}
-
               </div>
             </div>
 
             {/* Hosting Type */}
             {data.successpack === true && (
               <div className="space-y-3">
-
                 <h2 className="text-lg font-semibold text-gray-700">
                   Hosting Type
                 </h2>
 
                 <div className="space-y-2 text-sm">
-
                   <label className="flex items-center gap-3 cursor-pointer">
-
                     <input
                       type="radio"
                       name="hosting"
@@ -451,11 +415,9 @@ export default function PriceConfig() {
                     <span className="text-gray-700">
                       Standard Cloud Hosting - Free
                     </span>
-
                   </label>
 
                   <label className="flex items-center gap-3 cursor-pointer">
-
                     <input
                       type="radio"
                       name="hosting"
@@ -465,14 +427,10 @@ export default function PriceConfig() {
                       className="w-4 h-4 accent-[#1e40af] cursor-pointer"
                     />
 
-                    <span className="text-gray-500">
-                      Self Hosting - Free
-                    </span>
-
+                    <span className="text-gray-500">Self Hosting - Free</span>
                   </label>
 
                   <label className="flex items-center gap-3 cursor-pointer">
-
                     <input
                       type="radio"
                       name="hosting"
@@ -482,10 +440,7 @@ export default function PriceConfig() {
                       className="w-4 h-4 accent-[#1e40af] cursor-pointer"
                     />
 
-                    <span className="text-gray-500">
-                      Cloud Platform
-                    </span>
-
+                    <span className="text-gray-500">Cloud Platform</span>
                   </label>
 
                   {hosting === "cloud-platform" && (
@@ -494,10 +449,8 @@ export default function PriceConfig() {
                       className="ml-7 p-4 bg-[#e6f4f8] border border-[#cbe7f0] rounded-lg space-y-4"
                       dir="rtl"
                     >
-
                       {/* عدد المواقع الإلكترونية */}
                       <div className="flex items-center justify-between gap-4 flex-wrap">
-
                         <span className="text-gray-700">
                           عدد موقع إلكتروني ١٠ ريال شهري / ١٢٠ ريال سنوي
                         </span>
@@ -510,17 +463,15 @@ export default function PriceConfig() {
                             setCloudWebsites(
                               e.target.value === ""
                                 ? 0
-                                : Number(e.target.value)
+                                : Number(e.target.value),
                             )
                           }
                           className="w-20 px-3 py-1.5 border border-gray-300 rounded focus:outline-none focus:border-[#1e40af] text-center text-gray-700"
                         />
-
                       </div>
 
                       {/* التخزين (جيجابيت) */}
                       <div className="flex items-center justify-between gap-4 flex-wrap">
-
                         <span className="text-gray-700">
                           التخزين (جيجابيت) ١ ريال شهري / ١٢ ريال سنوي
                         </span>
@@ -533,12 +484,11 @@ export default function PriceConfig() {
                             setCloudStorage(
                               e.target.value === ""
                                 ? 0
-                                : Number(e.target.value)
+                                : Number(e.target.value),
                             )
                           }
                           className="w-20 px-3 py-1.5 border border-gray-300 rounded focus:outline-none focus:border-[#1e40af] text-center text-gray-700"
                         />
-
                       </div>
 
                       {cloudHostingCost > 0 && (
@@ -552,115 +502,91 @@ export default function PriceConfig() {
                           </span>
                         </div>
                       )}
-
                     </div>
                   )}
-
                 </div>
               </div>
             )}
-
           </div>
 
           {/* ================= RIGHT SIDE ================= */}
 
           <div>
-
             <div className="border border-gray-200 rounded-lg p-6 bg-white shadow-sm space-y-6">
-
               {/* Yearly / Monthly */}
 
               <div className="flex items-center justify-center gap-3 border-b border-gray-100 pb-4 text-sm font-medium">
-
-                <span className="text-gray-700">
-                  Monthly
-                </span>
+                <span className="text-gray-700">Monthly</span>
 
                 <label className="relative inline-flex items-center cursor-pointer">
-
                   <input
                     type="checkbox"
                     checked={isYearly}
-                    onChange={(e) =>
-                      setIsYearly(e.target.checked)
-                    }
+                    onChange={(e) => setIsYearly(e.target.checked)}
                     className="sr-only peer"
                   />
 
                   <div className="w-9 h-5 bg-gray-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-[#1e40af]" />
-
                 </label>
 
                 <span className="text-gray-700">
                   Yearly{" "}
-                  <span className="text-emerald-600 text-xs font-semibold">
-                    (خصم 15%)
-                  </span>
                 </span>
-
               </div>
 
               {/* Price */}
 
               <div className="space-y-3 text-sm">
-
                 <div className="flex justify-between items-center text-gray-700">
-
                   <span>
-
-                    <strong className="text-[#1e40af]">
-                      {usersCount}
-                    </strong>{" "}
+                    <strong className="text-[#1e40af]">{usersCount}</strong>{" "}
                     Users,{" "}
-
                     <strong className="text-[#1e40af]">
                       {data.modules?.[0]
                         ? Object.keys(data.modules[0]).length
                         : 0}
                     </strong>{" "}
                     Apps
-
                   </span>
 
                   <span>
                     {data.currency}
                     {basePrice.toFixed(2)}
                   </span>
-
                 </div>
+                {isYearly &&
+                <div className="flex justify-between items-center text-green-700 custom-font">
+                  <span>خصم ترويجي على السنة الأولى</span>
 
+                  <span>15%-</span>
+                </div>
+                }
                 {data.modules?.[0] &&
                   Object.keys(data.modules[0]).length > 11 && (
                     <div>
-
                       <div className="flex justify-between items-center text-gray-700">
-
                         <span>
                           With{" "}
                           <strong className="text-red-500">
                             website e-commerce
                           </strong>
                         </span>
-
                       </div>
 
                       <div className="flex justify-between items-center text-gray-700">
-
                         <span>
                           And{" "}
-                          <strong className="text-red-500">
-                            Maintenance
-                          </strong>
+                          <strong className="text-red-500">Maintenance</strong>
                         </span>
-
                       </div>
-
                     </div>
                   )}
 
                 {consultingCost > 0 && (
-                  <div className="flex justify-between items-center text-gray-700" dir="rtl">
-
+                  <div
+                    className="flex justify-between items-center text-gray-700"
+                    dir="rtl"
+                  >
                     <span>
                       الخدمة الاستشارية للتهيئة ({consultingHours} ساعة)
                     </span>
@@ -669,13 +595,14 @@ export default function PriceConfig() {
                       {data.currency}
                       {consultingCost.toFixed(2)}
                     </span>
-
                   </div>
                 )}
 
                 {cloudHostingCost > 0 && (
-                  <div className="flex justify-between items-center text-gray-700" dir="rtl">
-
+                  <div
+                    className="flex justify-between items-center text-gray-700"
+                    dir="rtl"
+                  >
                     <span>
                       استضافة Cloud Platform ({isYearly ? "سنوي" : "شهري"})
                     </span>
@@ -684,40 +611,29 @@ export default function PriceConfig() {
                       {data.currency}
                       {cloudHostingCost.toFixed(2)}
                     </span>
-
                   </div>
                 )}
 
                 <div className="flex justify-between items-center text-gray-700 border-b border-gray-100 pb-3">
-
-                  <span>
-                    Subtotal
-                  </span>
+                  <span>Subtotal</span>
 
                   <span>
                     {data.currency}
                     {subtotal.toFixed(2)}
                   </span>
-
                 </div>
 
                 <div className="flex justify-between items-center text-gray-700 border-b border-gray-100 pb-3">
-
-                  <span>
-                    VAT (15%)
-                  </span>
+                  <span>VAT (15%)</span>
 
                   <span>
                     {data.currency}
                     {vatAmount.toFixed(2)}
                   </span>
-
                 </div>
 
                 {isYearly ? (
-
                   <div className="flex justify-between items-center pt-1 font-semibold text-gray-800">
-
                     <span>
                       Total / Year <sup>(*)</sup>
                     </span>
@@ -726,13 +642,9 @@ export default function PriceConfig() {
                       {data.currency}
                       {totalWithVat.toFixed(2)}
                     </span>
-
                   </div>
-
                 ) : (
-
                   <div className="flex justify-between items-center pt-1 font-semibold text-gray-800">
-
                     <span>
                       Total / month <sup>(*)</sup>
                     </span>
@@ -741,17 +653,13 @@ export default function PriceConfig() {
                       {data.currency}
                       {totalWithVat.toFixed(2)}
                     </span>
-
                   </div>
-
                 )}
-
               </div>
 
               {/* Buttons */}
 
               <div className="space-y-3 pt-2">
-
                 <button
                   type="button"
                   className="w-full py-2.5 bg-[#1e40af] hover:bg-[#254fd8] text-white font-medium rounded transition"
@@ -765,11 +673,8 @@ export default function PriceConfig() {
                 >
                   Send / Print the quote
                 </button>
-
               </div>
-
             </div>
-
           </div>
         </div>
       </div>
@@ -777,9 +682,7 @@ export default function PriceConfig() {
       {/* ================= PROJECT ESTIMATOR MODAL ================= */}
 
       {showDialog && (
-
         <div className="fixed inset-0 z-50 overflow-y-auto">
-
           {/* Backdrop */}
 
           <div
@@ -788,13 +691,10 @@ export default function PriceConfig() {
           />
 
           <div className="flex min-h-full items-center justify-center p-4">
-
             <div className="relative w-full max-w-4xl overflow-hidden rounded-md bg-white text-left shadow-2xl">
-
               {/* Modal Header */}
 
               <div className="flex items-center justify-between border-b border-gray-100 p-6 pb-4">
-
                 <h2 className="text-2xl font-bold text-gray-800">
                   Project Estimator
                 </h2>
@@ -804,7 +704,6 @@ export default function PriceConfig() {
                   onClick={() => setShowDialog(false)}
                   className="text-gray-400 hover:text-gray-600 focus:outline-none"
                 >
-
                   <svg
                     className="size-6"
                     fill="none"
@@ -812,23 +711,18 @@ export default function PriceConfig() {
                     strokeWidth="1.5"
                     stroke="currentColor"
                   >
-
                     <path
                       strokeLinecap="round"
                       strokeLinejoin="round"
                       d="M6 18 18 6M6 6l12 12"
                     />
-
                   </svg>
-
                 </button>
-
               </div>
 
               {/* Modal Body */}
 
               <div className="space-y-6 p-6 text-gray-600">
-
                 <p className="text-sm leading-relaxed text-gray-600">
                   To ensure a 99% success rate for the setup process, it is
                   necessary to analyze your project requirements, configure the
@@ -840,10 +734,7 @@ export default function PriceConfig() {
                 {/* Company Size */}
 
                 <div className="flex items-center gap-2 text-sm">
-
-                  <span>
-                    Your company Size
-                  </span>
+                  <span>Your company Size</span>
 
                   <input
                     type="number"
@@ -852,24 +743,19 @@ export default function PriceConfig() {
                     className="w-16 rounded border border-gray-300 px-2 py-1 text-center font-medium text-gray-800 focus:border-cyan-600 focus:outline-none"
                   />
 
-                  <span>
-                    employees.
-                  </span>
-
+                  <span>employees.</span>
                 </div>
 
                 {/* Modules */}
 
                 <div className="grid grid-cols-1 gap-y-4 gap-x-8 sm:grid-cols-2">
-
                   {availableModules.map((module) => {
-
                     /*
                      * نجيب الـ module الأصلي من modules
                      * عشان ناخد الـ ID
                      */
                     const originalModule = modules.find(
-                      (item) => item.name === module.name
+                      (item) => item.name === module.name,
                     );
 
                     if (!originalModule) {
@@ -878,28 +764,22 @@ export default function PriceConfig() {
 
                     const moduleId = originalModule.id;
 
-                    const isChecked =
-                      selectedModules.includes(moduleId);
+                    const isChecked = selectedModules.includes(moduleId);
 
                     return (
-
                       <label
                         key={moduleId}
                         className="flex items-start gap-3 cursor-pointer"
                       >
-
                         <input
                           type="checkbox"
                           value={moduleId}
                           checked={isChecked}
-                          onChange={(e) =>
-                            handleModuleChange(e, moduleId)
-                          }
+                          onChange={(e) => handleModuleChange(e, moduleId)}
                           className="mt-1 size-4 rounded border-gray-300 text-teal-600 focus:ring-teal-500"
                         />
 
                         <div className="flex items-center justify-between w-full">
-
                           <div className="text-sm font-bold text-gray-800">
                             {module.name}
                           </div>
@@ -907,28 +787,19 @@ export default function PriceConfig() {
                           <div className="text-sm font-bold text-gray-800 pr-20">
                             {module.price} SR
                           </div>
-
                         </div>
-
                       </label>
-
                     );
                   })}
-
                 </div>
 
                 {/* Project Cost */}
 
                 <div className="mt-6 border-t border-gray-200 pt-4">
-
                   <div>
-
                     <div className="text-sm text-gray-600">
-
                       The cost of achieving 99% successful configuration. =
-
                       <span className="border rounded p-3 m-2">
-
                         <span className="custom-font text-xl text-[#17A2B8]">
                           {data.currency}
                         </span>
@@ -936,21 +807,15 @@ export default function PriceConfig() {
                         <span className="text-3xl font-extrabold text-[#17A2B8]">
                           {totalPrice}
                         </span>
-
                       </span>
-
                     </div>
-
                   </div>
-
                 </div>
-
               </div>
 
               {/* Modal Footer */}
 
               <div className="border-t border-gray-100 p-6 pt-4">
-
                 <button
                   type="button"
                   onClick={() => setShowDialog(false)}
@@ -958,17 +823,11 @@ export default function PriceConfig() {
                 >
                   Close
                 </button>
-
               </div>
-
             </div>
-
           </div>
-
         </div>
-
       )}
-
     </>
   );
 }

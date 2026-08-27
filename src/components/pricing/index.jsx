@@ -110,7 +110,7 @@ export default function IndexPrice() {
           {/* Discount */}
           {isYearly && (
             <span className="rounded-full bg-green-500/20 px-3 py-1 text-sm font-bold text-green-400">
-              خصم 15% سنوياً
+              خصم 15% علي السنة الأولى
             </span>
           )}
 
