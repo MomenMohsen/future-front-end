@@ -96,6 +96,17 @@ export default function PriceConfig() {
   // هنا بنحفظ ID الموديولات المختارة
   const [selectedModules, setSelectedModules] = useState([]);
 
+  // Service Schedule (الخدمة الاستشارية للتهيئة - اون لاين)
+  const [showServiceSchedule, setShowServiceSchedule] = useState(false);
+  const [consultingHours, setConsultingHours] = useState(0);
+
+  // Hosting Type
+  const [hosting, setHosting] = useState("cloud");
+
+  // Cloud Platform extras (عدد المواقع + التخزين بالجيجابيت)
+  const [cloudWebsites, setCloudWebsites] = useState(0);
+  const [cloudStorage, setCloudStorage] = useState(0);
+
   const { id } = useParams();
 
   const data = {
@@ -158,6 +169,36 @@ export default function PriceConfig() {
   }, 0);
 
   const priceInYear = (Number(data.price) * 12).toFixed(2);
+
+  /*
+   * تكلفة الخدمة الاستشارية للتهيئة (اون لاين)
+   * ١٠٠ ريال / الساعة
+   */
+  const CONSULTING_HOURLY_RATE = 100;
+  const consultingCost =
+    (Number(consultingHours) || 0) * CONSULTING_HOURLY_RATE;
+
+  /*
+   * تكلفة Cloud Platform
+   * عدد المواقع: ١٠ ريال شهري / ١٢٠ ريال سنوي
+   * التخزين (جيجابيت): ١ ريال شهري / ١٢ ريال سنوي
+   */
+  const CLOUD_WEBSITE_MONTHLY_RATE = 10;
+  const CLOUD_WEBSITE_YEARLY_RATE = 120;
+  const CLOUD_STORAGE_MONTHLY_RATE = 1;
+  const CLOUD_STORAGE_YEARLY_RATE = 12;
+
+  const cloudHostingCost =
+    hosting === "cloud-platform"
+      ? isYearly
+        ? (Number(cloudWebsites) || 0) * CLOUD_WEBSITE_YEARLY_RATE +
+          (Number(cloudStorage) || 0) * CLOUD_STORAGE_YEARLY_RATE
+        : (Number(cloudWebsites) || 0) * CLOUD_WEBSITE_MONTHLY_RATE +
+          (Number(cloudStorage) || 0) * CLOUD_STORAGE_MONTHLY_RATE
+      : 0;
+
+  // إجمالي كل الإضافات (الموديولات + الاستشارة + الاستضافة)
+  const combinedExtras = totalPrice + consultingCost + cloudHostingCost;
 
   return (
     <>
@@ -284,15 +325,69 @@ export default function PriceConfig() {
                         Service Customization
                       </button>
 
-                      {/* Read More */}
-                      <a
-                        href="pricing-packs.html"
+                      {/* Service Schedule */}
+                      <button
+                        type="button"
+                        onClick={() =>
+                          setShowServiceSchedule((prev) => !prev)
+                        }
                         className="px-4 py-2 bg-white text-sm font-medium rounded border border-gray-200 transition hover:bg-[#1e40af] hover:text-white"
                       >
                         Service Schedule
-                      </a>
+                      </button>
 
                     </div>
+
+                    {/* لوحة الخدمة الاستشارية للتهيئة (اون لاين) */}
+                    {showServiceSchedule && (
+                      <div
+                        id="serviceScheduleBox"
+                        className="p-4 bg-white border border-[#cbe7f0] rounded-lg space-y-3"
+                        dir="rtl"
+                      >
+                        <div className="flex items-center justify-between gap-4 flex-wrap">
+
+                          <span className="text-sm text-gray-700 font-medium">
+                            الخدمة الاستشارية للتهيئة ١٠٠ ريال / الساعة (اون لاين)
+                          </span>
+
+                          <div className="flex items-center gap-2">
+
+                            <input
+                              type="number"
+                              min="0"
+                              value={consultingHours}
+                              onChange={(e) =>
+                                setConsultingHours(
+                                  e.target.value === ""
+                                    ? 0
+                                    : Number(e.target.value)
+                                )
+                              }
+                              className="w-20 px-3 py-1.5 border border-gray-300 rounded focus:outline-none focus:border-[#1e40af] text-center text-gray-700"
+                            />
+
+                            <span className="text-sm text-gray-600">
+                              ساعة
+                            </span>
+
+                          </div>
+
+                        </div>
+
+                        {consultingCost > 0 && (
+                          <div className="flex justify-between items-center text-sm text-gray-700 border-t border-gray-100 pt-2">
+                            <span>إجمالي تكلفة الاستشارة</span>
+                            <span className="font-semibold text-[#1e40af]">
+                              {data.currency}
+                              {consultingCost.toFixed(2)}
+                            </span>
+                          </div>
+                        )}
+
+                      </div>
+                    )}
+
                   </div>
                 )}
 
@@ -315,7 +410,8 @@ export default function PriceConfig() {
                       type="radio"
                       name="hosting"
                       value="cloud"
-                      defaultChecked
+                      checked={hosting === "cloud"}
+                      onChange={(e) => setHosting(e.target.value)}
                       className="w-4 h-4 accent-[#1e40af] cursor-pointer"
                     />
 
@@ -331,6 +427,8 @@ export default function PriceConfig() {
                       type="radio"
                       name="hosting"
                       value="self"
+                      checked={hosting === "self"}
+                      onChange={(e) => setHosting(e.target.value)}
                       className="w-4 h-4 accent-[#1e40af] cursor-pointer"
                     />
 
@@ -346,6 +444,8 @@ export default function PriceConfig() {
                       type="radio"
                       name="hosting"
                       value="cloud-platform"
+                      checked={hosting === "cloud-platform"}
+                      onChange={(e) => setHosting(e.target.value)}
                       className="w-4 h-4 accent-[#1e40af] cursor-pointer"
                     />
 
@@ -354,6 +454,74 @@ export default function PriceConfig() {
                     </span>
 
                   </label>
+
+                  {hosting === "cloud-platform" && (
+                    <div
+                      id="cloudPlatformBox"
+                      className="ml-7 p-4 bg-[#e6f4f8] border border-[#cbe7f0] rounded-lg space-y-4"
+                      dir="rtl"
+                    >
+
+                      {/* عدد المواقع الإلكترونية */}
+                      <div className="flex items-center justify-between gap-4 flex-wrap">
+
+                        <span className="text-gray-700">
+                          عدد موقع إلكتروني ١٠ ريال شهري / ١٢٠ ريال سنوي
+                        </span>
+
+                        <input
+                          type="number"
+                          min="0"
+                          value={cloudWebsites}
+                          onChange={(e) =>
+                            setCloudWebsites(
+                              e.target.value === ""
+                                ? 0
+                                : Number(e.target.value)
+                            )
+                          }
+                          className="w-20 px-3 py-1.5 border border-gray-300 rounded focus:outline-none focus:border-[#1e40af] text-center text-gray-700"
+                        />
+
+                      </div>
+
+                      {/* التخزين (جيجابيت) */}
+                      <div className="flex items-center justify-between gap-4 flex-wrap">
+
+                        <span className="text-gray-700">
+                          التخزين (جيجابيت) ١ ريال شهري / ١٢ ريال سنوي
+                        </span>
+
+                        <input
+                          type="number"
+                          min="0"
+                          value={cloudStorage}
+                          onChange={(e) =>
+                            setCloudStorage(
+                              e.target.value === ""
+                                ? 0
+                                : Number(e.target.value)
+                            )
+                          }
+                          className="w-20 px-3 py-1.5 border border-gray-300 rounded focus:outline-none focus:border-[#1e40af] text-center text-gray-700"
+                        />
+
+                      </div>
+
+                      {cloudHostingCost > 0 && (
+                        <div className="flex justify-between items-center text-gray-700 border-t border-gray-100 pt-2">
+                          <span>
+                            إجمالي الاستضافة / {isYearly ? "سنوي" : "شهري"}
+                          </span>
+                          <span className="font-semibold text-[#1e40af]">
+                            {data.currency}
+                            {cloudHostingCost.toFixed(2)}
+                          </span>
+                        </div>
+                      )}
+
+                    </div>
+                  )}
 
                 </div>
               </div>
@@ -454,6 +622,36 @@ export default function PriceConfig() {
                     </div>
                   )}
 
+                {consultingCost > 0 && (
+                  <div className="flex justify-between items-center text-gray-700" dir="rtl">
+
+                    <span>
+                      الخدمة الاستشارية للتهيئة ({consultingHours} ساعة)
+                    </span>
+
+                    <span>
+                      {data.currency}
+                      {consultingCost.toFixed(2)}
+                    </span>
+
+                  </div>
+                )}
+
+                {cloudHostingCost > 0 && (
+                  <div className="flex justify-between items-center text-gray-700" dir="rtl">
+
+                    <span>
+                      استضافة Cloud Platform ({isYearly ? "سنوي" : "شهري"})
+                    </span>
+
+                    <span>
+                      {data.currency}
+                      {cloudHostingCost.toFixed(2)}
+                    </span>
+
+                  </div>
+                )}
+
                 {isYearly && (
                   <div className="flex justify-between items-center text-emerald-600 font-medium italic border-b border-gray-100 pb-3">
 
@@ -481,7 +679,7 @@ export default function PriceConfig() {
                       {data.currency}
                       {(
                         Number(priceInYear) * 0.85 +
-                        totalPrice
+                        combinedExtras
                       ).toFixed(2)}
                     </span>
 
@@ -499,7 +697,7 @@ export default function PriceConfig() {
                       {data.currency}
                       {(
                         Number(data.price) +
-                        totalPrice
+                        combinedExtras
                       ).toFixed(2)}
                     </span>
 
