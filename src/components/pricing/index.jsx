@@ -7,18 +7,24 @@ export default function IndexPrice() {
 
   // false = Monthly
   // true  = Yearly
-  const [isYearly, setIsYearly] = useState(false);
+  const [isYearly, setIsYearly] = useState(true);
 
   // Calculate price
-  const calculatePrice = (monthlyPrice) => {
-    const price = Number(monthlyPrice);
-
-    if (isYearly) {
-      // 12 months - 15% discount
-      return (price * 12 * 0.85).toFixed(2);
-    }
+  // بيرجع سعر الشهر مباشرة حسب الفئة المختارة (شهري / سنوي)
+  // من غير أي حساب خصم تلقائي - الأسعار بتتحدد يدويًا لكل باقة
+  const calculatePrice = (monthlyPrice, yearlyPrice) => {
+    const price = isYearly ? Number(yearlyPrice) : Number(monthlyPrice);
 
     return price.toFixed(2);
+  };
+
+  // إجمالي السعر في السنة (بيظهر بس لما تكون الفئة سنوي)
+  const calculateYearlyTotal = (yearlyPrice) => {
+    if (!isYearly) {
+      return null;
+    }
+
+    return (Number(yearlyPrice) * 12).toFixed(2);
   };
 
   return (
@@ -124,7 +130,8 @@ export default function IndexPrice() {
           {/* Basic */}
           <PriceCard
             name="الباقة الأساسية"
-            price={calculatePrice("70.50")}
+            price={calculatePrice("71", "61")}
+            yearlyTotal={calculateYearlyTotal("61")}
             currency="ر.س"
             descript="Perfect for small businesses and startups"
             modules={[
@@ -143,7 +150,8 @@ export default function IndexPrice() {
           {/* Standard */}
           <PriceCard
             name="الباقة القياسية"
-            price={calculatePrice("120")}
+            price={calculatePrice("120", "105")}
+            yearlyTotal={calculateYearlyTotal("105")}
             currency="ر.س"
             descript="Perfect for small businesses and startups"
             modules={[
@@ -168,7 +176,8 @@ export default function IndexPrice() {
           {/* Enterprise */}
           <PriceCard
             name="الباقة المؤسسية"
-            price={calculatePrice("189.95")}
+            price={calculatePrice("190", "173")}
+            yearlyTotal={calculateYearlyTotal("173")}
             currency="ر.س"
             descript="Perfect for small businesses and startups"
             modules={[
