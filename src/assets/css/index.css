@@ -8,6 +8,6 @@
     font-display: swap;
 }
 
-@theme {
-    --font-sans: "Kaff", sans-serif;
+h1,h2,h3,h4,h5,h6,.custom-font{
+    font-family: "Kaff", sans-serif;;
 }

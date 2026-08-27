@@ -42,7 +42,7 @@ export default function PriceCardCustom({
 
           <ul
             className="grid grid-cols-1
-                 sm:grid-cols-1 text-sm/6"
+                 sm:grid-cols-1 text-sm/6 custom-font"
           >
             {modules.map((module, index) => (
               <li key={index} className="flex gap-x-3">

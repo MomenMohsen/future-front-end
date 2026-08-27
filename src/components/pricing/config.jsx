@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { Link, useParams } from "react-router-dom";
-
 let data_1 = {
   name: "الباقة الأساسية",
   price: "70.50",
@@ -62,28 +61,20 @@ export default function PriceConfig() {
   const [showDialog, setShowDialog] = useState(false);
   const [isYearly, setIsYearly] = useState(true);
 
-
   const [selectedModules, setSelectedModules] = useState([]);
   const basePrice = 0;
-    const handleModuleChange = (e) => {
+  const handleModuleChange = (e) => {
     const value = Number(e.target.value);
 
     if (e.target.checked) {
-      // إضافة الموديول
       setSelectedModules((prev) => [...prev, value]);
     } else {
-      // حذف الموديول
-      setSelectedModules((prev) =>
-        prev.filter((item) => item !== value)
-      );
+      setSelectedModules((prev) => prev.filter((item) => item !== value));
     }
   };
 
   const totalPrice =
-    basePrice +
-    selectedModules.reduce((total, value) => total + value, 0);
-
-
+    basePrice + selectedModules.reduce((total, value) => total + value, 0);
 
   const { id } = useParams();
   const data = {
@@ -137,143 +128,121 @@ export default function PriceConfig() {
             </div>
 
             {/* Hosting Type */}
+
+            {/* Implementation Service */}
+
             <div className="space-y-3">
               <h2 className="text-lg font-semibold text-gray-700">
-                Hosting Type
+                Implementation Service
               </h2>
 
-              <div className="space-y-2 text-sm">
-                <label className="flex items-center gap-3 cursor-pointer">
-                  <input
-                    type="radio"
-                    name="hosting"
-                    value="cloud"
-                    defaultChecked
-                    className="w-4 h-4 accent-[#1e40af] cursor-pointer"
-                  />
+              {/* Self Service */}
+              <label className="flex items-center gap-3 cursor-pointer">
+                <input
+                  type="radio"
+                  name="service"
+                  value="self_service"
+                  checked={service === "self_service"}
+                  onChange={(e) => setService(e.target.value)}
+                  className="w-4 h-4 accent-[#1e40af] cursor-pointer"
+                />
 
-                  <span className="text-gray-700">
-                    Standard Cloud Hosting - Free
-                  </span>
-                </label>
+                <span className="text-gray-700">Self Service</span>
+              </label>
 
-                <label className="flex items-center gap-3 cursor-pointer">
-                  <input
-                    type="radio"
-                    name="hosting"
-                    value="self"
-                    className="w-4 h-4 accent-[#1e40af] cursor-pointer"
-                  />
-
-                  <span className="text-gray-500">Self Hosting - Free</span>
-                </label>
-
-                <label className="flex items-center gap-3 cursor-pointer">
-                  <input
-                    type="radio"
-                    name="hosting"
-                    value="cloud-platform"
-                    className="w-4 h-4 accent-[#1e40af] cursor-pointer"
-                  />
-
-                  <span className="text-gray-500">Cloud Platform</span>
-                </label>
-              </div>
-            </div>
-            {/* Implementation Service */}
-            {data.successpack === true ? (
-              <div className="space-y-3">
-                <h2 className="text-lg font-semibold text-gray-700">
-                  Implementation Service
-                </h2>
-
-                {/* Self Service */}
+              {/* Success Pack */}
+              <div className="space-y-2">
                 <label className="flex items-center gap-3 cursor-pointer">
                   <input
                     type="radio"
                     name="service"
-                    value="self_service"
-                    checked={service === "self_service"}
+                    value="success_pack"
+                    checked={service === "success_pack"}
                     onChange={(e) => setService(e.target.value)}
                     className="w-4 h-4 accent-[#1e40af] cursor-pointer"
                   />
 
-                  <span className="text-gray-700">Self Service</span>
+                  <span className="text-gray-700">
+                    Future Advisory Service (subject to service hours)
+                  </span>
                 </label>
 
-                {/* Success Pack */}
-                <div className="space-y-2">
+                {/* Success Pack Box */}
+                {service === "success_pack" && (
+                  <div
+                    id="successBox"
+                    className="ml-7 p-4 bg-[#e6f4f8] border border-[#cbe7f0] rounded-lg space-y-4"
+                  >
+                    <p className="text-sm text-gray-700 leading-relaxed">
+                      Through the "Future" consulting package, an expert is
+                      assigned to provide training and guidance, helping you
+                      implement your system and configure workflows as part of
+                      the initial rollout. This service covers a specific number
+                      of hours—determined by the chosen package—and remains
+                      valid for a full year.
+                    </p>
+
+                    <div className="flex items-center justify-end gap-2 pt-1">
+                      {/* Configure */}
+                      <button
+                        type="button"
+                        onClick={() => setShowDialog(true)}
+                        className="px-4 py-2 bg-white text-sm font-medium rounded border border-gray-200 transition hover:bg-[#1e40af] hover:text-white"
+                      >
+                        Service Customization
+                      </button>
+
+                      {/* Read More */}
+                      <a
+                        href="pricing-packs.html"
+                        className="px-4 py-2 bg-white text-sm font-medium rounded border border-gray-200 transition hover:bg-[#1e40af] hover:text-white"
+                      >
+                        Service Schedule
+                      </a>
+                    </div>
+                  </div>
+                )}
+              </div>
+            </div>
+            {data.successpack === true ? (
+              <div className="space-y-3">
+                <h2 className="text-lg font-semibold text-gray-700">
+                  Hosting Type
+                </h2>
+
+                <div className="space-y-2 text-sm">
                   <label className="flex items-center gap-3 cursor-pointer">
                     <input
                       type="radio"
-                      name="service"
-                      value="success_pack"
-                      checked={service === "success_pack"}
-                      onChange={(e) => setService(e.target.value)}
+                      name="hosting"
+                      value="cloud"
+                      defaultChecked
                       className="w-4 h-4 accent-[#1e40af] cursor-pointer"
                     />
-
                     <span className="text-gray-700">
-                      Success Pack (recommended for <strong>&lt; 50</strong>{" "}
-                      users)
+                      Standard Cloud Hosting - Free
                     </span>
                   </label>
 
-                  {/* Success Pack Box */}
-                  {service === "success_pack" && (
-                    <div
-                      id="successBox"
-                      className="ml-7 p-4 bg-[#e6f4f8] border border-[#cbe7f0] rounded-lg space-y-4"
-                    >
-                      <p className="text-sm text-gray-700 leading-relaxed">
-                        With a Success Pack, you are assigned an expert to
-                        provide unique personalized assistance to help you
-                        customize your solution and optimize your workflows as
-                        part of your initial implementation. Keep in mind these
-                        hours expire after one year so be sure to utilize them
-                        whenever you need support.
-                      </p>
+                  <label className="flex items-center gap-3 cursor-pointer">
+                    <input
+                      type="radio"
+                      name="hosting"
+                      value="self"
+                      className="w-4 h-4 accent-[#1e40af] cursor-pointer"
+                    />
+                    <span className="text-gray-500">Self Hosting - Free</span>
+                  </label>
 
-                      <div className="flex items-center justify-end gap-2 pt-1">
-                        {/* Configure */}
-                        <button
-                          type="button"
-                          onClick={() => setShowDialog(true)}
-                          className="inline-flex items-center gap-1.5 px-4 py-2 bg-[#1e40af] hover:bg-[#254fd8] text-white text-sm font-medium rounded transition"
-                        >
-                          <svg
-                            className="w-4 h-4"
-                            fill="none"
-                            stroke="currentColor"
-                            viewBox="0 0 24 24"
-                          >
-                            <path
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                              strokeWidth="2"
-                              d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"
-                            />
-
-                            <path
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                              strokeWidth="2"
-                              d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
-                            />
-                          </svg>
-                          Configure
-                        </button>
-
-                        {/* Read More */}
-                        <a
-                          href="pricing-packs.html"
-                          className="px-4 py-2 bg-white hover:bg-gray-50 text-[#1e40af] text-sm font-medium rounded border border-gray-200 transition"
-                        >
-                          Read More
-                        </a>
-                      </div>
-                    </div>
-                  )}
+                  <label className="flex items-center gap-3 cursor-pointer">
+                    <input
+                      type="radio"
+                      name="hosting"
+                      value="cloud-platform"
+                      className="w-4 h-4 accent-[#1e40af] cursor-pointer"
+                    />
+                    <span className="text-gray-500">Cloud Platform</span>
+                  </label>
                 </div>
               </div>
             ) : (
@@ -352,7 +321,7 @@ export default function PriceConfig() {
                     </span>
                     <span>
                       {data.currency}
-                      {((Number(priceInYear) * 0.85)+(totalPrice)).toFixed(2)}
+                      {(Number(priceInYear) * 0.85 + totalPrice).toFixed(2)}
                     </span>
                   </div>
                 ) : (
@@ -362,7 +331,7 @@ export default function PriceConfig() {
                     </span>
                     <span>
                       {data.currency}
-                      {Number((data.price)+(totalPrice)).toFixed(2)}
+                      {Number(data.price + totalPrice).toFixed(2)}
                     </span>
                   </div>
                 )}
@@ -398,7 +367,6 @@ export default function PriceConfig() {
             onClick={() => setShowDialog(false)}
           />
 
-          {/* Modal Container */}
           <div className="flex min-h-full items-center justify-center p-4">
             <div className="relative w-full max-w-4xl overflow-hidden rounded-md bg-white text-left shadow-2xl">
               {/* Modal Header */}
@@ -431,10 +399,11 @@ export default function PriceConfig() {
               {/* Modal Body */}
               <div className="space-y-6 p-6 text-gray-600">
                 <p className="text-sm leading-relaxed text-gray-600">
-                  A successful implementation requires analysis of your business
-                  needs, configuration, training and coaching of your key users,
-                  import of your data and customization of the business flows.
-                  This tool helps you estimate the cost of the project:
+                  To ensure a 99% success rate for the setup process, it is
+                  necessary to analyze your project requirements, configure the
+                  system, train users, import data, and establish the workflow
+                  structure. Here, you will find a clear cost breakdown for each
+                  of these processes.
                 </p>
 
                 {/* Company Size */}
@@ -453,23 +422,28 @@ export default function PriceConfig() {
 
                 {/* Modules */}
                 <div className="grid grid-cols-1 gap-y-4 gap-x-8 sm:grid-cols-2">
-
                   <label className="flex items-start gap-3 cursor-pointer">
-                    <input type="checkbox" className="mt-1 size-4 rounded border-gray-300 text-teal-600 focus:ring-teal-500" value="1000" onChange={handleModuleChange} />
+                    <input
+                      type="checkbox"
+                      className="mt-1 size-4 rounded border-gray-300 text-teal-600 focus:ring-teal-500"
+                      value="1000"
+                      onChange={handleModuleChange}
+                    />
                     <div className="flex items-center justify-between w-full">
-                      <div className="text-sm font-bold text-gray-800">
-                        CRM
-                      </div>
+                      <div className="text-sm font-bold text-gray-800">CRM</div>
                       <div className="text-sm font-bold text-gray-800 pr-20">
                         1000 SR
                       </div>
                     </div>
                   </label>
 
-
-                  
                   <label className="flex items-start gap-3 cursor-pointer">
-                    <input type="checkbox" className="mt-1 size-4 rounded border-gray-300 text-teal-600 focus:ring-teal-500" value="1000" onChange={handleModuleChange} />
+                    <input
+                      type="checkbox"
+                      className="mt-1 size-4 rounded border-gray-300 text-teal-600 focus:ring-teal-500"
+                      value="1000"
+                      onChange={handleModuleChange}
+                    />
                     <div className="flex items-center justify-between w-full">
                       <div className="text-sm font-bold text-gray-800">
                         Sales
@@ -481,11 +455,14 @@ export default function PriceConfig() {
                   </label>
 
                   <label className="flex items-start gap-3 cursor-pointer">
-                    <input type="checkbox" className="mt-1 size-4 rounded border-gray-300 text-teal-600 focus:ring-teal-500" value="1500" onChange={handleModuleChange} />
+                    <input
+                      type="checkbox"
+                      className="mt-1 size-4 rounded border-gray-300 text-teal-600 focus:ring-teal-500"
+                      value="1500"
+                      onChange={handleModuleChange}
+                    />
                     <div className="flex items-center justify-between w-full">
-                      <div className="text-sm font-bold text-gray-800">
-                        POS
-                      </div>
+                      <div className="text-sm font-bold text-gray-800">POS</div>
                       <div className="text-sm font-bold text-gray-800 pr-20">
                         1500 SR
                       </div>
@@ -493,7 +470,12 @@ export default function PriceConfig() {
                   </label>
 
                   <label className="flex items-start gap-3 cursor-pointer">
-                    <input type="checkbox" className="mt-1 size-4 rounded border-gray-300 text-teal-600 focus:ring-teal-500" value="1000" onChange={handleModuleChange} />
+                    <input
+                      type="checkbox"
+                      className="mt-1 size-4 rounded border-gray-300 text-teal-600 focus:ring-teal-500"
+                      value="1000"
+                      onChange={handleModuleChange}
+                    />
                     <div className="flex items-center justify-between w-full">
                       <div className="text-sm font-bold text-gray-800">
                         Purchases
@@ -505,7 +487,12 @@ export default function PriceConfig() {
                   </label>
 
                   <label className="flex items-start gap-3 cursor-pointer">
-                    <input type="checkbox" className="mt-1 size-4 rounded border-gray-300 text-teal-600 focus:ring-teal-500" value="1000" onChange={handleModuleChange} />
+                    <input
+                      type="checkbox"
+                      className="mt-1 size-4 rounded border-gray-300 text-teal-600 focus:ring-teal-500"
+                      value="1000"
+                      onChange={handleModuleChange}
+                    />
                     <div className="flex items-center justify-between w-full">
                       <div className="text-sm font-bold text-gray-800">
                         Warehousing
@@ -516,9 +503,13 @@ export default function PriceConfig() {
                     </div>
                   </label>
 
-
                   <label className="flex items-start gap-3 cursor-pointer">
-                    <input type="checkbox" className="mt-1 size-4 rounded border-gray-300 text-teal-600 focus:ring-teal-500" value="1500" onChange={handleModuleChange} />
+                    <input
+                      type="checkbox"
+                      className="mt-1 size-4 rounded border-gray-300 text-teal-600 focus:ring-teal-500"
+                      value="1500"
+                      onChange={handleModuleChange}
+                    />
                     <div className="flex items-center justify-between w-full">
                       <div className="text-sm font-bold text-gray-800">
                         Fixed Assets
@@ -529,9 +520,13 @@ export default function PriceConfig() {
                     </div>
                   </label>
 
-
                   <label className="flex items-start gap-3 cursor-pointer">
-                    <input type="checkbox" className="mt-1 size-4 rounded border-gray-300 text-teal-600 focus:ring-teal-500" value="1500" onChange={handleModuleChange} />
+                    <input
+                      type="checkbox"
+                      className="mt-1 size-4 rounded border-gray-300 text-teal-600 focus:ring-teal-500"
+                      value="1500"
+                      onChange={handleModuleChange}
+                    />
                     <div className="flex items-center justify-between w-full">
                       <div className="text-sm font-bold text-gray-800">
                         Financial Management
@@ -542,23 +537,28 @@ export default function PriceConfig() {
                     </div>
                   </label>
 
-
                   <label className="flex items-start gap-3 cursor-pointer">
-                    <input type="checkbox" className="mt-1 size-4 rounded border-gray-300 text-teal-600 focus:ring-teal-500" value="1500" onChange={handleModuleChange} />
+                    <input
+                      type="checkbox"
+                      className="mt-1 size-4 rounded border-gray-300 text-teal-600 focus:ring-teal-500"
+                      value="1500"
+                      onChange={handleModuleChange}
+                    />
                     <div className="flex items-center justify-between w-full">
-                      <div className="text-sm font-bold text-gray-800">
-                        HR
-                      </div>
+                      <div className="text-sm font-bold text-gray-800">HR</div>
                       <div className="text-sm font-bold text-gray-800 pr-20">
                         1500 SR
                       </div>
                     </div>
                   </label>
 
-
-
                   <label className="flex items-start gap-3 cursor-pointer">
-                    <input type="checkbox" className="mt-1 size-4 rounded border-gray-300 text-teal-600 focus:ring-teal-500" value="1500" onChange={handleModuleChange} />
+                    <input
+                      type="checkbox"
+                      className="mt-1 size-4 rounded border-gray-300 text-teal-600 focus:ring-teal-500"
+                      value="1500"
+                      onChange={handleModuleChange}
+                    />
                     <div className="flex items-center justify-between w-full">
                       <div className="text-sm font-bold text-gray-800">
                         Project Manager
@@ -569,9 +569,13 @@ export default function PriceConfig() {
                     </div>
                   </label>
 
-
                   <label className="flex items-start gap-3 cursor-pointer">
-                    <input type="checkbox" className="mt-1 size-4 rounded border-gray-300 text-teal-600 focus:ring-teal-500" value="2000" onChange={handleModuleChange} />
+                    <input
+                      type="checkbox"
+                      className="mt-1 size-4 rounded border-gray-300 text-teal-600 focus:ring-teal-500"
+                      value="2000"
+                      onChange={handleModuleChange}
+                    />
                     <div className="flex items-center justify-between w-full">
                       <div className="text-sm font-bold text-gray-800">
                         Manufacturing
@@ -583,7 +587,12 @@ export default function PriceConfig() {
                   </label>
 
                   <label className="flex items-start gap-3 cursor-pointer">
-                    <input type="checkbox" className="mt-1 size-4 rounded border-gray-300 text-teal-600 focus:ring-teal-500" value="1000" onChange={handleModuleChange} />
+                    <input
+                      type="checkbox"
+                      className="mt-1 size-4 rounded border-gray-300 text-teal-600 focus:ring-teal-500"
+                      value="1000"
+                      onChange={handleModuleChange}
+                    />
                     <div className="flex items-center justify-between w-full">
                       <div className="text-sm font-bold text-gray-800">
                         Reports & Analytics
@@ -594,9 +603,13 @@ export default function PriceConfig() {
                     </div>
                   </label>
 
-
                   <label className="flex items-start gap-3 cursor-pointer">
-                    <input type="checkbox" className="mt-1 size-4 rounded border-gray-300 text-teal-600 focus:ring-teal-500" value="2000" onChange={handleModuleChange} />
+                    <input
+                      type="checkbox"
+                      className="mt-1 size-4 rounded border-gray-300 text-teal-600 focus:ring-teal-500"
+                      value="2000"
+                      onChange={handleModuleChange}
+                    />
                     <div className="flex items-center justify-between w-full">
                       <div className="text-sm font-bold text-gray-800">
                         e-commerce
@@ -607,9 +620,13 @@ export default function PriceConfig() {
                     </div>
                   </label>
 
-
                   <label className="flex items-start gap-3 cursor-pointer">
-                    <input type="checkbox" className="mt-1 size-4 rounded border-gray-300 text-teal-600 focus:ring-teal-500" value="2000" onChange={handleModuleChange} />
+                    <input
+                      type="checkbox"
+                      className="mt-1 size-4 rounded border-gray-300 text-teal-600 focus:ring-teal-500"
+                      value="2000"
+                      onChange={handleModuleChange}
+                    />
                     <div className="flex items-center justify-between w-full">
                       <div className="text-sm font-bold text-gray-800">
                         Maintenance
@@ -619,32 +636,21 @@ export default function PriceConfig() {
                       </div>
                     </div>
                   </label>
-
-
-
                 </div>
 
                 {/* Project Cost */}
                 <div className="mt-6 border-t border-gray-200 pt-4">
-                  <div className="grid grid-cols-1 items-center gap-4 md:grid-cols-2">
-                    <div>
-                      <div className="text-sm text-gray-600">Project Cost:</div>
-
-                      <div className="text-3xl font-extrabold text-[#17A2B8]">
-                        {data.currency} {totalPrice.toFixed(2)}{" "}
-                        <span className="text-xl font-normal">*</span>
-                      </div>
-                    </div>
-
-                    <div className="text-xs text-gray-500 space-y-1">
-                      <p>
-                        80% of projects within this scope are put in production
-                        in{" "}
-                        <span className="font-bold text-red-500">25 hours</span>{" "}
-                        or less.
-                      </p>
-
-                      <p>* 15% off for new customers</p>
+                  <div>
+                    <div className="text-sm text-gray-600">
+                      The cost of achieving 99% successful configuration. =
+                      <span className="border rounded p-3 m-2">
+                        <span className="custom-font text-xl text-[#17A2B8]">
+                          {data.currency}
+                        </span>
+                        <span className="text-3xl font-extrabold text-[#17A2B8]">
+                          {totalPrice}
+                        </span>
+                      </span>
                     </div>
                   </div>
                 </div>
