@@ -420,7 +420,7 @@ export default function PriceConfig() {
 
                   <span>
                     {data.currency}
-                    {data.price}
+                    {Number(data.price).toFixed(2)}
                   </span>
 
                 </div>
