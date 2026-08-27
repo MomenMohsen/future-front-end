@@ -3,7 +3,8 @@ import { Link, useParams } from "react-router-dom";
 
 const data_1 = {
   name: "الباقة الأساسية",
-  price: "70.50",
+  monthlyPrice: "71",
+  yearlyPrice: "61",
   currency: "ر.س",
   descript: "Perfect for small businesses and startups",
 
@@ -21,7 +22,8 @@ const data_1 = {
 
 const data_2 = {
   name: "الباقة القياسية",
-  price: "120",
+  monthlyPrice: "120",
+  yearlyPrice: "105",
   currency: "ر.س",
   descript: "Perfect for small businesses and startups",
 
@@ -44,7 +46,8 @@ const data_2 = {
 
 const data_3 = {
   name: "الباقة المؤسسية",
-  price: "189.95",
+  monthlyPrice: "190",
+  yearlyPrice: "173",
   currency: "ر.س",
   descript: "Perfect for small businesses and startups",
 
@@ -92,6 +95,7 @@ export default function PriceConfig() {
   const [service, setService] = useState("");
   const [showDialog, setShowDialog] = useState(false);
   const [isYearly, setIsYearly] = useState(true);
+  const [users, setUsers] = useState(1);
 
   // هنا بنحفظ ID الموديولات المختارة
   const [selectedModules, setSelectedModules] = useState([]);
@@ -168,7 +172,20 @@ export default function PriceConfig() {
     return total + (module?.price || 0);
   }, 0);
 
-  const priceInYear = (Number(data.price) * 12).toFixed(2);
+  /*
+   * عدد المستخدمين (لا يقل عن 1)
+   */
+  const usersCount = Number(users) || 1;
+
+  /*
+   * سعر الاشتراك الأساسي في الشهر (بدون الإضافات)
+   * = عدد المستخدمين × سعر الفرد في الشهر (حسب الفئة المختارة شهري/سنوي)
+   */
+  const pricePerUser = isYearly
+    ? Number(data.yearlyPrice)
+    : Number(data.monthlyPrice);
+
+  const basePrice = pricePerUser * usersCount;
 
   /*
    * تكلفة الخدمة الاستشارية للتهيئة (اون لاين)
@@ -199,6 +216,17 @@ export default function PriceConfig() {
 
   // إجمالي كل الإضافات (الموديولات + الاستشارة + الاستضافة)
   const combinedExtras = totalPrice + consultingCost + cloudHostingCost;
+
+  // المجموع قبل الضريبة (الاشتراك + الإضافات)
+  // السنوي: السعر الشهري × 12 + الإضافات | الشهري: السعر الشهري + الإضافات
+  const subtotal = (isYearly ? basePrice * 12 : basePrice) + combinedExtras;
+
+  /*
+   * ضريبة القيمة المضافة 15%
+   */
+  const VAT_RATE = 0.15;
+  const vatAmount = subtotal * VAT_RATE;
+  const totalWithVat = subtotal + vatAmount;
 
   return (
     <>
@@ -247,8 +275,13 @@ export default function PriceConfig() {
 
               <input
                 type="number"
-                defaultValue="1"
+                value={users}
                 min="1"
+                onChange={(e) =>
+                  setUsers(
+                    e.target.value === "" ? 1 : Number(e.target.value)
+                  )
+                }
                 className="w-24 px-3 py-1.5 border border-gray-300 rounded focus:outline-none focus:border-teal-600 text-center text-gray-700"
               />
 
@@ -559,7 +592,10 @@ export default function PriceConfig() {
                 </label>
 
                 <span className="text-gray-700">
-                  Yearly
+                  Yearly{" "}
+                  <span className="text-emerald-600 text-xs font-semibold">
+                    (خصم 15%)
+                  </span>
                 </span>
 
               </div>
@@ -573,7 +609,7 @@ export default function PriceConfig() {
                   <span>
 
                     <strong className="text-[#1e40af]">
-                      1
+                      {usersCount}
                     </strong>{" "}
                     Users,{" "}
 
@@ -588,7 +624,7 @@ export default function PriceConfig() {
 
                   <span>
                     {data.currency}
-                    {Number(data.price).toFixed(2)}
+                    {basePrice.toFixed(2)}
                   </span>
 
                 </div>
@@ -652,20 +688,31 @@ export default function PriceConfig() {
                   </div>
                 )}
 
-                {isYearly && (
-                  <div className="flex justify-between items-center text-emerald-600 font-medium italic border-b border-gray-100 pb-3">
+                <div className="flex justify-between items-center text-gray-700 border-b border-gray-100 pb-3">
 
-                    <span>
-                      First Year Initial Discount
-                    </span>
+                  <span>
+                    Subtotal
+                  </span>
 
-                    <span>
-                      {data.currency}
-                      {(Number(priceInYear) * 0.85).toFixed(2)}
-                    </span>
+                  <span>
+                    {data.currency}
+                    {subtotal.toFixed(2)}
+                  </span>
 
-                  </div>
-                )}
+                </div>
+
+                <div className="flex justify-between items-center text-gray-700 border-b border-gray-100 pb-3">
+
+                  <span>
+                    VAT (15%)
+                  </span>
+
+                  <span>
+                    {data.currency}
+                    {vatAmount.toFixed(2)}
+                  </span>
+
+                </div>
 
                 {isYearly ? (
 
@@ -677,10 +724,7 @@ export default function PriceConfig() {
 
                     <span>
                       {data.currency}
-                      {(
-                        Number(priceInYear) * 0.85 +
-                        combinedExtras
-                      ).toFixed(2)}
+                      {totalWithVat.toFixed(2)}
                     </span>
 
                   </div>
@@ -695,10 +739,7 @@ export default function PriceConfig() {
 
                     <span>
                       {data.currency}
-                      {(
-                        Number(data.price) +
-                        combinedExtras
-                      ).toFixed(2)}
+                      {totalWithVat.toFixed(2)}
                     </span>
 
                   </div>
