@@ -36,7 +36,7 @@ export default function PriceCard({
           ""
         )}
 
-        <h3 className="text-base/7 font-semibold text-gray-900">{name}</h3>
+        <h3 className="text-xl font-bold text-white text-center bg-[#1e40af] rounded p-2">{name}</h3>
 
         <p className="mt-4 flex items-baseline gap-x-2">
           <span className="text-5xl font-semibold tracking-tight text-gray-900">
